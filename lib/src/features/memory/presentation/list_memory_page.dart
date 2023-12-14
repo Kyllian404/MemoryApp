@@ -10,6 +10,9 @@ class ListMemoryPage extends StatefulWidget {
 }
 
 class _ListMemoryPageState extends State<ListMemoryPage> {
+
+  final List<String> memos = ["test1","test2","test3","test4","test5","test6","test7","test8"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,154 +37,13 @@ class _ListMemoryPageState extends State<ListMemoryPage> {
                   GoogleFonts.koulen(color: AppColors.colorTxt, fontSize: 32),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 1'),
-                    subtitle: const Text('You can guess'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-              Hero(
-                tag: 'ListTile-Hero',
-                child: Material(
-                  child: ListTile(
-                    title: const Text('Random 2'),
-                    subtitle: const Text('Guess in :'),
-                    tileColor: AppColors.iconsPrimary,
-                    onTap: () {
-                      print('Bonjour !');
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),
+          Expanded(child: ListView.builder(
+            itemCount: memos.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                title: Text(memos[index]),
+              );
+            }))
         ],
       ),
     );
