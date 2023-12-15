@@ -7,6 +7,7 @@ import 'package:memoryapp/src/infrastructure/local_db/sembast/my_sembast.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  ///* Initialisation des dépendances (infrastucture)
   final ILocalDb localDb = await MySembast.initDb();
 
   final container = ProviderContainer(

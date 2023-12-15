@@ -14,6 +14,8 @@ class HomeMemoryPage extends StatefulWidget {
 }
 
 class _HomeMemoryPageState extends State<HomeMemoryPage> {
+  //final controller = ref.read(memoControllerProvider.notifier);
+
   DateTime? _pickedDateTime;
   //* Liste des défis
   List<ItemRandom> defis = [];

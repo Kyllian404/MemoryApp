@@ -15,22 +15,32 @@ class MemoryRepository implements IMemoryRepository {
     final result = <Memo>[];
 
     /// On récupère le Json sur sembast
-    final json = ref.read(localDbProvider).getData('memolist') as List<Map<String, dynamic>>;
+    final json = await ref.read(localDbProvider).getData('memolist');
 
     /// Si la liste n'est pas vide on transforme le json en Liste de Memo
-    if(json.isNotEmpty) {
-      json.map((memo) => result.add(Memo.fromJson(memo)));
+    if(json != null && json.isNotEmpty) {
+      for (var memo in json) {
+        if (memo is Map<String, dynamic>) {
+          result.add(Memo.fromJson(memo));
+        }
+      }
     }
 
     return result;
   }
 
-  /// Pour ajouter un todo
+  /// Pour ajouter un memo
   @override
   Future<void> setMemo(List<Memo> memos) async {
+    //* Liste vide pour recevoir le resultat serialisé
     final datas = <Map<String, dynamic>>[];
+
+    //* Si la liste n'est pas vide on transforme le json en Liste de Memo
     if(memos.isNotEmpty) {
-      memos.map((memo) => datas.add(memo.toJson()));
+      for (Memo memo in memos){
+        datas.add(memo.toJson());
+      }
+    //* Puis on envoie le Json sur sembast  
     ref.read(localDbProvider).setData('memolist', memos);
     }
   }
