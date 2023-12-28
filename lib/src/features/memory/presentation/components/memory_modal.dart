@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memoryapp/src/constants/app_colors.dart';
 import 'package:memoryapp/src/features/memory/presentation/controllers/memory_controller.dart';
+import 'package:memoryapp/src/utils/async_value_ui.dart';
 
 
 class MemoryModal extends ConsumerStatefulWidget {
@@ -26,6 +27,11 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
       
       final controller = ref.read(memoControllerProvider.notifier);
       final state = ref.watch(memoControllerProvider);
+
+       ref.listen(
+      memoControllerProvider,
+      (_, state) => state.showAlertDialogOnError(context),
+      );
 
       // construire l'ui
 
