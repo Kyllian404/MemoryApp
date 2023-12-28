@@ -20,8 +20,7 @@ Memo _$MemoFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Memo {
-  String get date => throw _privateConstructorUsedError;
-  String get hour => throw _privateConstructorUsedError;
+  DateTime? get datetime => throw _privateConstructorUsedError;
   String get textUser => throw _privateConstructorUsedError;
   String get nameRandom => throw _privateConstructorUsedError;
   bool get guess => throw _privateConstructorUsedError;
@@ -37,11 +36,7 @@ abstract class $MemoCopyWith<$Res> {
       _$MemoCopyWithImpl<$Res, Memo>;
   @useResult
   $Res call(
-      {String date,
-      String hour,
-      String textUser,
-      String nameRandom,
-      bool guess});
+      {DateTime? datetime, String textUser, String nameRandom, bool guess});
 }
 
 /// @nodoc
@@ -57,21 +52,16 @@ class _$MemoCopyWithImpl<$Res, $Val extends Memo>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? hour = null,
+    Object? datetime = freezed,
     Object? textUser = null,
     Object? nameRandom = null,
     Object? guess = null,
   }) {
     return _then(_value.copyWith(
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
-              as String,
+      datetime: freezed == datetime
+          ? _value.datetime
+          : datetime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       textUser: null == textUser
           ? _value.textUser
           : textUser // ignore: cast_nullable_to_non_nullable
@@ -96,11 +86,7 @@ abstract class _$$MemoImplCopyWith<$Res> implements $MemoCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String date,
-      String hour,
-      String textUser,
-      String nameRandom,
-      bool guess});
+      {DateTime? datetime, String textUser, String nameRandom, bool guess});
 }
 
 /// @nodoc
@@ -113,21 +99,16 @@ class __$$MemoImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? date = null,
-    Object? hour = null,
+    Object? datetime = freezed,
     Object? textUser = null,
     Object? nameRandom = null,
     Object? guess = null,
   }) {
     return _then(_$MemoImpl(
-      date: null == date
-          ? _value.date
-          : date // ignore: cast_nullable_to_non_nullable
-              as String,
-      hour: null == hour
-          ? _value.hour
-          : hour // ignore: cast_nullable_to_non_nullable
-              as String,
+      datetime: freezed == datetime
+          ? _value.datetime
+          : datetime // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
       textUser: null == textUser
           ? _value.textUser
           : textUser // ignore: cast_nullable_to_non_nullable
@@ -148,8 +129,7 @@ class __$$MemoImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$MemoImpl implements _Memo {
   _$MemoImpl(
-      {required this.date,
-      required this.hour,
+      {required this.datetime,
       required this.textUser,
       required this.nameRandom,
       required this.guess});
@@ -158,9 +138,7 @@ class _$MemoImpl implements _Memo {
       _$$MemoImplFromJson(json);
 
   @override
-  final String date;
-  @override
-  final String hour;
+  final DateTime? datetime;
   @override
   final String textUser;
   @override
@@ -170,7 +148,7 @@ class _$MemoImpl implements _Memo {
 
   @override
   String toString() {
-    return 'Memo(date: $date, hour: $hour, textUser: $textUser, nameRandom: $nameRandom, guess: $guess)';
+    return 'Memo(datetime: $datetime, textUser: $textUser, nameRandom: $nameRandom, guess: $guess)';
   }
 
   @override
@@ -178,8 +156,8 @@ class _$MemoImpl implements _Memo {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$MemoImpl &&
-            (identical(other.date, date) || other.date == date) &&
-            (identical(other.hour, hour) || other.hour == hour) &&
+            (identical(other.datetime, datetime) ||
+                other.datetime == datetime) &&
             (identical(other.textUser, textUser) ||
                 other.textUser == textUser) &&
             (identical(other.nameRandom, nameRandom) ||
@@ -190,7 +168,7 @@ class _$MemoImpl implements _Memo {
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, date, hour, textUser, nameRandom, guess);
+      Object.hash(runtimeType, datetime, textUser, nameRandom, guess);
 
   @JsonKey(ignore: true)
   @override
@@ -208,8 +186,7 @@ class _$MemoImpl implements _Memo {
 
 abstract class _Memo implements Memo {
   factory _Memo(
-      {required final String date,
-      required final String hour,
+      {required final DateTime? datetime,
       required final String textUser,
       required final String nameRandom,
       required final bool guess}) = _$MemoImpl;
@@ -217,9 +194,7 @@ abstract class _Memo implements Memo {
   factory _Memo.fromJson(Map<String, dynamic> json) = _$MemoImpl.fromJson;
 
   @override
-  String get date;
-  @override
-  String get hour;
+  DateTime? get datetime;
   @override
   String get textUser;
   @override

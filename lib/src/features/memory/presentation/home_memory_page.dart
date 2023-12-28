@@ -16,7 +16,7 @@ class HomeMemoryPage extends StatefulWidget {
 class _HomeMemoryPageState extends State<HomeMemoryPage> {
   //final controller = ref.read(memoControllerProvider.notifier);
 
-  DateTime? _pickedDateTime;
+  late DateTime _pickedDateTime;
   //* Liste des défis
   List<ItemRandom> defis = [];
 
@@ -77,6 +77,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
         // Utilisez _pickedDateTime comme vous le souhaitez
         print('Date et heure choisies: $_pickedDateTime');
         print('Durée jusqu\'à la date choisie: $difference');
+        // * Appel de la modale personnalisée
         _showCustomDialog(context);
       }
     }
@@ -89,6 +90,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
         return MemoryModal(
           parentContext: parentContext,
           callback: _selectDateTime,
+          datePickerUser: _pickedDateTime,
         );
       },
     );

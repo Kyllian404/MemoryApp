@@ -10,8 +10,10 @@ class ListMemoryPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final challengeList = ref.watch(memoListProvider);
+    //! TODO Mettre en place le booléen qui affichera une tuile 
+    //! différente lorsque l'on peut deviner ou non
     //final guessState = ref.watch(memoControllerProvider);
-
+    print('Les datas : ${challengeList.toString()}');
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.fondApp,
@@ -32,6 +34,7 @@ class ListMemoryPage extends ConsumerWidget {
               'MY LIST',
               style:
                   GoogleFonts.koulen(color: AppColors.colorTxt, fontSize: 32),
+                  
             ),
           ),
           Expanded(
@@ -39,11 +42,18 @@ class ListMemoryPage extends ConsumerWidget {
             data: (data) => ListView.builder(
                 itemCount: data.length,
                 itemBuilder: (context, index) {
+                  print('Item $index: ${data[index]} + ${data.length}');
                   return Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: ListTile(
-                      title: Text(data[index].nameRandom),
-                      onTap: () {},
+                      title: Text(data[index].nameRandom, style: GoogleFonts.koulen(
+                    color: AppColors.colorTxt,
+                    fontSize: 25,
+                  ),),
+                      onTap: () {
+
+                        print('${challengeList}');
+                      },
                     ),
                   );
                 }),

@@ -7,8 +7,9 @@ part of 'memo.dart';
 // **************************************************************************
 
 _$MemoImpl _$$MemoImplFromJson(Map<String, dynamic> json) => _$MemoImpl(
-      date: json['date'] as String,
-      hour: json['hour'] as String,
+      datetime: json['datetime'] == null
+          ? null
+          : DateTime.parse(json['datetime'] as String),
       textUser: json['textUser'] as String,
       nameRandom: json['nameRandom'] as String,
       guess: json['guess'] as bool,
@@ -16,8 +17,7 @@ _$MemoImpl _$$MemoImplFromJson(Map<String, dynamic> json) => _$MemoImpl(
 
 Map<String, dynamic> _$$MemoImplToJson(_$MemoImpl instance) =>
     <String, dynamic>{
-      'date': instance.date,
-      'hour': instance.hour,
+      'datetime': instance.datetime?.toIso8601String(),
       'textUser': instance.textUser,
       'nameRandom': instance.nameRandom,
       'guess': instance.guess,

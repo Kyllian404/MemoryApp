@@ -1,20 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memoryapp/src/constants/app_colors.dart';
+import 'package:memoryapp/src/features/memory/presentation/controllers/memory_controller.dart';
 
-class MemoryModal extends StatefulWidget {
-  const MemoryModal(
-      {super.key, required this.parentContext, required this.callback});
+
+class MemoryModal extends ConsumerStatefulWidget {
+  const MemoryModal({super.key, required this.parentContext, required this.callback, required this.datePickerUser});
   final BuildContext parentContext;
   final void Function(BuildContext) callback;
+  final DateTime datePickerUser;
 
   @override
-  State<MemoryModal> createState() => _MemoryModalState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _MemoryModalState();
 }
 
-class _MemoryModalState extends State<MemoryModal> {
+class _MemoryModalState extends ConsumerState<MemoryModal> {
   int _currentStep = 0;
   final _wordController = TextEditingController();
+  
+  
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(builder: (context, ref, child) {
+      
+      final controller = ref.read(memoControllerProvider.notifier);
+      final state = ref.watch(memoControllerProvider);
+
+      // construire l'ui
 
   List<Widget> _buildWordSelection() {
     return [
@@ -146,9 +159,9 @@ class _MemoryModalState extends State<MemoryModal> {
         alignment: MainAxisAlignment.center,
         children: <Widget>[
           ElevatedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
+            onPressed: () => state.isLoading
+                        ? null
+                        : controller.setMemo(widget.datePickerUser, _wordController.text),
             style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0)),
@@ -179,9 +192,19 @@ class _MemoryModalState extends State<MemoryModal> {
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return SimpleDialog(
+  List<Widget> _buildDialogContent() {
+    switch (_currentStep) {
+      case 0:
+        return _buildWordSelection();
+      case 1:
+        return _buildShowWord();
+
+      default:
+        return [const SizedBox()];
+    }
+  }
+
+      return SimpleDialog(
       backgroundColor: AppColors.fondApp,
       children: <Widget>[
         SizedBox(
@@ -194,17 +217,8 @@ class _MemoryModalState extends State<MemoryModal> {
         )
       ],
     );
+
+    });
   }
 
-  List<Widget> _buildDialogContent() {
-    switch (_currentStep) {
-      case 0:
-        return _buildWordSelection();
-      case 1:
-        return _buildShowWord();
-
-      default:
-        return [const SizedBox()];
-    }
-  }
 }

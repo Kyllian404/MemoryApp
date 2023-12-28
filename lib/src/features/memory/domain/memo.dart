@@ -6,8 +6,7 @@ part 'memo.g.dart';
 @freezed
 class Memo with _$Memo {
   factory Memo(
-      {required String date,
-      required String hour,
+      {required DateTime? datetime,
       required String textUser,
       required String nameRandom,
       required bool guess}) = _Memo;
