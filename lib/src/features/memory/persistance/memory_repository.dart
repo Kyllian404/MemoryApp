@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:memoryapp/src/exceptions/app_exception.dart';
 import 'package:memoryapp/src/features/memory/domain/memo.dart';
 import 'package:memoryapp/src/features/memory/persistance/i_memory_repository.dart';
 import 'package:memoryapp/src/infrastructure/local_db/i_local_db.dart';
@@ -35,6 +36,7 @@ class MemoryRepository implements IMemoryRepository {
     //* Liste vide pour recevoir le resultat serialisé
     final datas = <Map<String, dynamic>>[];
 
+    try{
     //* Si la liste n'est pas vide on transforme le json en Liste de Memo
     if(memos.isNotEmpty) {
       for (Memo memo in memos){
@@ -42,6 +44,9 @@ class MemoryRepository implements IMemoryRepository {
       }
     //* Puis on envoie le Json sur sembast  
     await ref.read(localDbProvider).setData('memolist', datas);
+    }
+    } catch (e) {
+      throw AppException.unknownError();
     }
   }
 }

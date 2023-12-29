@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:memoryapp/src/exceptions/app_exception.dart';
 import 'package:memoryapp/src/features/memory/application/providers/memo_providers.dart';
 import 'package:memoryapp/src/features/memory/domain/memo.dart';
 import 'package:memoryapp/src/features/memory/persistance/i_memory_repository.dart';
@@ -12,7 +13,8 @@ class SetMemoUseCase {
   final Ref ref;
 
   Future<void> execute(DateTime dTPickerUser, String textUser) async {
-    final repo = ref.read(memoryRepositoryProvider);
+   try{
+     final repo = ref.read(memoryRepositoryProvider);
 
     final datas = ref.read(memoListProvider);
     if (datas.hasValue) {
@@ -22,6 +24,9 @@ class SetMemoUseCase {
       await repo.setMemo(memoList);
       ref.read(memoListProvider.notifier).change(memoList);
     }
+   } catch (e) {
+    throw AppException.unknownError();
+   }
   }
 }
 
