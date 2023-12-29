@@ -41,7 +41,7 @@ class MemoryRepository implements IMemoryRepository {
         datas.add(memo.toJson());
       }
     //* Puis on envoie le Json sur sembast  
-    await ref.read(localDbProvider).setData('memolist', memos);
+    await ref.read(localDbProvider).setData('memolist', datas);
     }
   }
 }
