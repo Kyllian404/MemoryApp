@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,6 +24,43 @@ class MemoryModal extends ConsumerStatefulWidget {
 class _MemoryModalState extends ConsumerState<MemoryModal> {
   int _currentStep = 0;
   final _wordController = TextEditingController();
+
+  int remainingTime = 30; // Temps restant pour le compte à rebours
+  Timer? countdownTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    
+  }
+
+  void startCountdown() {
+    countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (remainingTime > 0) {
+        setState(() {
+          remainingTime--;
+        });
+      } else {
+        timer.cancel();
+        // Action à la fin du compte à rebours
+        onCountdownFinished(ref);
+      }
+    });
+  }
+
+  void onCountdownFinished(WidgetRef ref) {
+    // Enregistrez les informations ici et fermez la modal
+    final controller = ref.read(memoControllerProvider.notifier);
+    controller.setMemo(widget.datePickerUser, _wordController.text);
+    Navigator.of(context).pop();
+  }
+
+  @override
+  void dispose() {
+    countdownTimer?.cancel();
+    // ... vos autres nettoyages ...
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,6 +152,7 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
                 onPressed: () {
                   print(_wordController.text);
                   setState(() => _currentStep = 1);
+                  startCountdown();
                 },
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -136,6 +176,13 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
 
       List<Widget> _buildShowWord() {
         return [
+          Text(
+            '$remainingTime',
+            style: GoogleFonts.koulen(
+              color: Colors.red, // Couleur rouge comme demandé
+              fontSize: 32,
+            ),
+          ),
           Text(
             'TO MEMORIZE',
             style: GoogleFonts.koulen(
