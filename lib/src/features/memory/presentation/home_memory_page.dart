@@ -154,7 +154,8 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const ListMemoryPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const ListMemoryPage()),
                   );
                 },
                 child: Center(

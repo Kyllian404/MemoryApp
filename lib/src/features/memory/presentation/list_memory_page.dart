@@ -10,7 +10,7 @@ class ListMemoryPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final challengeList = ref.watch(memoListProvider);
-    //! TODO Mettre en place le booléen qui affichera une tuile 
+    //! TODO Mettre en place le booléen qui affichera une tuile
     //! différente lorsque l'on peut deviner ou non
     //final guessState = ref.watch(memoControllerProvider);
     print('Les datas : ${challengeList.toString()}');
@@ -24,6 +24,15 @@ class ListMemoryPage extends ConsumerWidget {
               fontWeight: FontWeight.bold,
               fontSize: 50),
         ),
+        actions: <Widget>[
+          IconButton(
+              onPressed: () {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content:
+                        Text('Ce btn sert à la suppresion de la liste.')));
+              },
+              icon: const Icon(Icons.settings))
+        ],
         centerTitle: true,
       ),
       backgroundColor: AppColors.fondApp,
@@ -34,24 +43,53 @@ class ListMemoryPage extends ConsumerWidget {
               'MY LIST',
               style:
                   GoogleFonts.koulen(color: AppColors.colorTxt, fontSize: 32),
-                  
             ),
           ),
           Expanded(
               child: challengeList.when(
             data: (data) => ListView.builder(
+                padding: const EdgeInsets.all(8.0),
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   print('Item $index: ${data[index]} + ${data.length}');
                   return Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
+                    padding: EdgeInsets.only(top: .0),
                     child: ListTile(
-                      title: Text(data[index].nameRandom, style: GoogleFonts.koulen(
-                    color: AppColors.colorTxt,
-                    fontSize: 25,
-                  ),),
+                      title: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.center,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              AppColors.iconsPrimary,
+                              AppColors.iconsSecondary
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        height: 70,
+                        child: Column(
+                          children: [
+                            Text(
+                              "Random $index",
+                              style: GoogleFonts.quicksand(
+                                  color: AppColors.colorTxt,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                            Text(
+                              "Guess in : _time_",
+                              style: GoogleFonts.quicksand(
+                                  color: AppColors.colorTxt,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.w600),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
+                        ),
+                      ),
                       onTap: () {
-
                         print('${challengeList}');
                       },
                     ),
