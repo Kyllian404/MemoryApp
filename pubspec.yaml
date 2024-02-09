@@ -19,6 +19,7 @@ dependencies:
   riverpod_annotation: ^2.1.6
   sembast: ^3.5.0+1
   path_provider: ^2.1.1
+  json_annotation: ^4.0.0
 
 dev_dependencies:
   flutter_test:

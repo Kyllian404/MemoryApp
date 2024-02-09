@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:memoryapp/src/constants/app_colors.dart';
 import 'package:memoryapp/src/features/memory/application/providers/memo_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:memoryapp/src/features/memory/presentation/controllers/memory_controller.dart';
 
 class ListMemoryPage extends ConsumerWidget {
   const ListMemoryPage({super.key});
@@ -10,6 +11,7 @@ class ListMemoryPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final challengeList = ref.watch(memoListProvider);
+    final controller = ref.read(memoControllerProvider.notifier);
     //! TODO Mettre en place le booléen qui affichera une tuile
     //! différente lorsque l'on peut deviner ou non
     //final guessState = ref.watch(memoControllerProvider);
@@ -27,6 +29,7 @@ class ListMemoryPage extends ConsumerWidget {
         actions: <Widget>[
           IconButton(
               onPressed: () {
+                controller.cleanChallenge();                
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content:
                         Text('Ce btn sert à la suppresion de la liste.')));

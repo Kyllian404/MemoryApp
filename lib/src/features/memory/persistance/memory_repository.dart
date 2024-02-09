@@ -49,4 +49,16 @@ class MemoryRepository implements IMemoryRepository {
       throw AppException.unknownError();
     }
   }
+
+ /// Pour vider la challengeList
+  @override
+  Future<void> cleanChallenge() async {
+    try {
+      //* On vide la valeur challengeList sur sembast
+      ref.read(localDbProvider).setData('memolist', []);
+    } catch (e) {
+      throw AppException.unknownError();
+    }
+  }
+
 }

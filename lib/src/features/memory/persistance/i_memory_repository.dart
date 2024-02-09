@@ -8,6 +8,7 @@ part 'i_memory_repository.g.dart';
 abstract class IMemoryRepository {
   Future<List<Memo>> fetchMemo();
   Future<void> setMemo(List<Memo> memos);
+  Future<void> cleanChallenge();
 }
 
 @Riverpod(keepAlive: true)
