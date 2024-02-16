@@ -1,5 +1,5 @@
+import 'package:memoryapp/src/features/memory/application/use_cases/delete_challenge_list_use_case.dart';
 import 'package:memoryapp/src/features/memory/application/use_cases/set_memo_use_case.dart';
-import 'package:memoryapp/src/features/memory/persistance/i_memory_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'memory_controller.g.dart';
@@ -19,9 +19,9 @@ class MemoController extends _$MemoController {
 
     /// Pour vider la challengelist
   Future<void> cleanChallenge() async {
-    final repo = ref.read(memoryRepositoryProvider);
+    final repo = ref.read(deleteChallengListUseCaseProvider);
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => repo.cleanChallenge());
+    state = await AsyncValue.guard(() => repo.execute());
   }
 
   //! TODO Controller pour la tuile de guess d'UI

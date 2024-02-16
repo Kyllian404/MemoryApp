@@ -25,7 +25,7 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
   int _currentStep = 0;
   final _wordController = TextEditingController();
 
-  int remainingTime = 30; // Temps restant pour le compte à rebours
+  int remainingTime = 30; // Temps restant en seconde pour le compte à rebours
   Timer? countdownTimer;
 
   @override
