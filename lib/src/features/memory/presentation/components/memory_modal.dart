@@ -80,7 +80,7 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
       List<Widget> _buildWordSelection() {
         return [
           Text(
-            'SELECT YOUR WORD',
+            'Select',
             style: GoogleFonts.koulen(
               color: AppColors.colorTxt,
               fontSize: 32,
@@ -102,7 +102,7 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
               print('Random word press');
             },
             child: Text(
-              'RANDOM',
+              'a Random Word',
               style: GoogleFonts.koulen(
                 color: AppColors.colorTxt,
                 fontSize: 32,
@@ -110,9 +110,19 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
             ),
           ),
           Padding(
+            padding: const EdgeInsetsDirectional.only(top: 5.0),
+            child: Text(
+              'Or',
+              style: GoogleFonts.koulen(
+                color: AppColors.colorTxt,
+                fontSize: 32, 
+              ),
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
-              padding: const EdgeInsets.all(2),
+              padding: const EdgeInsets.all(3),
               decoration: BoxDecoration(
                 color: AppColors.fondBtn,
                 borderRadius: BorderRadius.circular(10),
@@ -120,7 +130,7 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
               ),
               child: TextField(
                 controller: _wordController,
-                decoration: const InputDecoration(hintText: "Write here..."),
+                decoration: const InputDecoration(hintText: "Write your word here..."),
               ),
             ),
           ),
@@ -177,7 +187,7 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
       List<Widget> _buildShowWord() {
         return [
           Text(
-            '$remainingTime',
+            '$remainingTime s',
             style: GoogleFonts.koulen(
               color: Colors.red, // Couleur rouge comme demandé
               fontSize: 32,

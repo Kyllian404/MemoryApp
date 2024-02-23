@@ -4,6 +4,7 @@ import 'package:memoryapp/src/constants/app_colors.dart';
 import 'package:memoryapp/src/features/memory/application/providers/memo_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memoryapp/src/features/memory/presentation/controllers/memory_controller.dart';
+import 'package:intl/intl.dart';
 
 class ListMemoryPage extends ConsumerWidget {
   const ListMemoryPage({super.key});
@@ -29,10 +30,9 @@ class ListMemoryPage extends ConsumerWidget {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                controller.cleanChallenge();                
+                controller.cleanChallenge();
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content:
-                        Text('Ce btn sert à la suppresion de la liste.')));
+                    content: Text('Ce btn sert à la suppresion de la liste.')));
               },
               icon: const Icon(Icons.settings))
         ],
@@ -54,6 +54,8 @@ class ListMemoryPage extends ConsumerWidget {
                 padding: const EdgeInsets.all(8.0),
                 itemCount: data.length,
                 itemBuilder: (context, index) {
+
+                  //DateTime time = data[index].datetimeUser;
                   print('Item $index: ${data[index]} + ${data.length}');
                   return Padding(
                     padding: EdgeInsets.only(top: .0),
@@ -74,7 +76,7 @@ class ListMemoryPage extends ConsumerWidget {
                         child: Column(
                           children: [
                             Text(
-                              "Random $index",
+                              "Challenge ${index + 1}",
                               style: GoogleFonts.quicksand(
                                   color: AppColors.colorTxt,
                                   fontSize: 22,
@@ -82,7 +84,7 @@ class ListMemoryPage extends ConsumerWidget {
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              "Guess in : _time_",
+                              "Guess in : formattedTime",
                               style: GoogleFonts.quicksand(
                                   color: AppColors.colorTxt,
                                   fontSize: 22,
