@@ -54,20 +54,33 @@ class ListMemoryPage extends ConsumerWidget {
                 itemCount: data.length,
                 itemBuilder: (context, index) {
                   DateTime? time = data[index].datetime;
+                  final bool isPast = time!.isBefore(DateTime.now());
                   // Construction de la chaîne de format manuellement
                   String formattedTime =
-                      '${time?.day.toString().padLeft(2, '0')}-'
-                      '${time?.month.toString().padLeft(2, '0')}-'
-                      '${time?.year.toString().substring(2)} | '
-                      '${time?.hour.toString().padLeft(2, '0')}:'
-                      '${time?.minute.toString().padLeft(2, '0')}';
+                      '${time.day.toString().padLeft(2, '0')}-'
+                      '${time.month.toString().padLeft(2, '0')}-'
+                      '${time.year.toString().substring(2)} | '
+                      '${time.hour.toString().padLeft(2, '0')}:'
+                      '${time.minute.toString().padLeft(2, '0')}';
+
+                      
 
                   
                   return Padding(
                     padding: const EdgeInsets.only(top: .0),
                     child: ListTile(
                       title: Container(
-                        decoration: BoxDecoration(
+                        decoration: isPast ? BoxDecoration(
+                          gradient: const LinearGradient(
+                            begin: Alignment.center,
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              AppColors.fondBtnOk,
+                              AppColors.fondBtnOk
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ) : BoxDecoration(
                           gradient: const LinearGradient(
                             begin: Alignment.center,
                             end: Alignment.bottomCenter,
@@ -89,8 +102,7 @@ class ListMemoryPage extends ConsumerWidget {
                                   fontWeight: FontWeight.w600),
                               textAlign: TextAlign.center,
                             ),
-                            Text(
-                              "Guess in : $formattedTime",
+                            Text(isPast ? "You can guess" : "Guess in : $formattedTime" ,
                               style: GoogleFonts.quicksand(
                                   color: AppColors.colorTxt,
                                   fontSize: 22,
@@ -101,7 +113,7 @@ class ListMemoryPage extends ConsumerWidget {
                         ),
                       ),
                       onTap: () {
-                        print('${data[index].datetime}');
+                        print('${data[index].datetime} + $isPast');
                       },
                     ),
                   );
