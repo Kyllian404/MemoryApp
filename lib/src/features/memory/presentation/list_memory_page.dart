@@ -63,34 +63,33 @@ class ListMemoryPage extends ConsumerWidget {
                       '${time.hour.toString().padLeft(2, '0')}:'
                       '${time.minute.toString().padLeft(2, '0')}';
 
-                      
-
-                  
                   return Padding(
                     padding: const EdgeInsets.only(top: .0),
                     child: ListTile(
                       title: Container(
-                        decoration: isPast ? BoxDecoration(
-                          gradient: const LinearGradient(
-                            begin: Alignment.center,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              AppColors.fondBtnOk,
-                              AppColors.fondBtnOk
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ) : BoxDecoration(
-                          gradient: const LinearGradient(
-                            begin: Alignment.center,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              AppColors.iconsPrimary,
-                              AppColors.iconsSecondary
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
+                        decoration: isPast
+                            ? BoxDecoration(
+                                gradient: const LinearGradient(
+                                  begin: Alignment.center,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    AppColors.fondBtnOk,
+                                    AppColors.fondBtnOk
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              )
+                            : BoxDecoration(
+                                gradient: const LinearGradient(
+                                  begin: Alignment.center,
+                                  end: Alignment.bottomCenter,
+                                  colors: [
+                                    AppColors.iconsPrimary,
+                                    AppColors.iconsSecondary
+                                  ],
+                                ),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                         height: 70,
                         child: Column(
                           children: [
@@ -102,7 +101,10 @@ class ListMemoryPage extends ConsumerWidget {
                                   fontWeight: FontWeight.w600),
                               textAlign: TextAlign.center,
                             ),
-                            Text(isPast ? "You can guess" : "Guess in : $formattedTime" ,
+                            Text(
+                              isPast
+                                  ? "You can guess"
+                                  : "Guess in : $formattedTime",
                               style: GoogleFonts.quicksand(
                                   color: AppColors.colorTxt,
                                   fontSize: 22,
@@ -113,6 +115,25 @@ class ListMemoryPage extends ConsumerWidget {
                         ),
                       ),
                       onTap: () {
+                        if (isPast) {
+                          showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Do a guess'),
+                              content: Text(
+                                  'Would you do a guess for the challenge number $index ?'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.of(context).pop(),
+                                  child: const Text('Cancel'),
+                                ),
+                                TextButton(
+                                    onPressed: () => print('Guess Time wohoo'),
+                                    child: const Text('Confirm'))
+                              ],
+                            ),
+                          );
+                        }
                         print('${data[index].datetime} + $isPast');
                       },
                     ),
