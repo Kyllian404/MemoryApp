@@ -4,7 +4,6 @@ import 'package:memoryapp/src/constants/app_colors.dart';
 import 'package:memoryapp/src/features/memory/application/providers/memo_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memoryapp/src/features/memory/presentation/controllers/memory_controller.dart';
-import 'package:intl/intl.dart';
 
 class ListMemoryPage extends ConsumerWidget {
   const ListMemoryPage({super.key});
@@ -54,15 +53,22 @@ class ListMemoryPage extends ConsumerWidget {
                 padding: const EdgeInsets.all(8.0),
                 itemCount: data.length,
                 itemBuilder: (context, index) {
+                  DateTime? time = data[index].datetime;
+                  // Construction de la chaîne de format manuellement
+                  String formattedTime =
+                      '${time?.day.toString().padLeft(2, '0')}-'
+                      '${time?.month.toString().padLeft(2, '0')}-'
+                      '${time?.year.toString().substring(2)} | '
+                      '${time?.hour.toString().padLeft(2, '0')}:'
+                      '${time?.minute.toString().padLeft(2, '0')}';
 
-                  //DateTime time = data[index].datetimeUser;
-                  print('Item $index: ${data[index]} + ${data.length}');
+                  
                   return Padding(
-                    padding: EdgeInsets.only(top: .0),
+                    padding: const EdgeInsets.only(top: .0),
                     child: ListTile(
                       title: Container(
                         decoration: BoxDecoration(
-                          gradient: LinearGradient(
+                          gradient: const LinearGradient(
                             begin: Alignment.center,
                             end: Alignment.bottomCenter,
                             colors: [
@@ -84,7 +90,7 @@ class ListMemoryPage extends ConsumerWidget {
                               textAlign: TextAlign.center,
                             ),
                             Text(
-                              "Guess in : formattedTime",
+                              "Guess in : $formattedTime",
                               style: GoogleFonts.quicksand(
                                   color: AppColors.colorTxt,
                                   fontSize: 22,
@@ -95,7 +101,7 @@ class ListMemoryPage extends ConsumerWidget {
                         ),
                       ),
                       onTap: () {
-                        print('${challengeList}');
+                        print('${data[index].datetime}');
                       },
                     ),
                   );
