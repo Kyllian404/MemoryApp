@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:memoryapp/src/constants/app_colors.dart';
 import 'package:memoryapp/src/features/memory/application/providers/memo_providers.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:memoryapp/src/features/memory/presentation/components/guessing_modal.dart';
 import 'package:memoryapp/src/features/memory/presentation/controllers/memory_controller.dart';
 
 class ListMemoryPage extends ConsumerWidget {
@@ -128,7 +129,27 @@ class ListMemoryPage extends ConsumerWidget {
                                   child: const Text('Cancel'),
                                 ),
                                 TextButton(
-                                    onPressed: () => print('Guess Time wohoo'),
+                                    onPressed: () {
+                                      // Ferme la boîte de dialogue actuelle avant d'ouvrir la nouvelle
+                                      Navigator.of(context).pop();
+
+                                      // Remplacer ceci par votre appel à GuessingModal
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            GuessingModal(
+                                          parentContext: context,
+                                          callback: (BuildContext context) {
+                                            // Votre logique de callback ici, par exemple, rafraîchir l'état ou effectuer une suppression
+                                            print(
+                                                "Callback action after GuessingModal");
+                                          },
+                                          wordUser: data[index].textUser, // Remplacer par la donnée pertinente
+                                          idItemList:
+                                              index, // Supposant que `index` est votre idItemList
+                                        ),
+                                      );
+                                    },
                                     child: const Text('Confirm'))
                               ],
                             ),
