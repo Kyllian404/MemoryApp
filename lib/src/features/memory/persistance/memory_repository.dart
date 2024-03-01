@@ -50,6 +50,31 @@ class MemoryRepository implements IMemoryRepository {
     }
   }
 
+ /// Pour supprimer un memo de la challengeList
+  @override
+  Future<void> cleanGuess(int memoId) async {
+    try {
+  // On récupère la liste actuelle des Memos
+  final currentList = await fetchMemo();
+  
+  // Vérifie si l'index est valide
+  if (memoId < 0 || memoId >= currentList.length) {
+    throw AppException.unknownError();
+  }
+  
+  // On supprime le memo à l'index spécifié
+  currentList.removeAt(memoId);
+
+  // On transforme la liste mise à jour en JSON
+  final List<Map<String, dynamic>> updatedListJson = currentList.map((memo) => memo.toJson()).toList();
+
+  // On enregistre la nouvelle liste dans la base de données
+  await ref.read(localDbProvider).setData('memolist', updatedListJson);
+} catch (e) {
+  throw AppException.unknownError();
+}
+  }
+
  /// Pour vider la challengeList
   @override
   Future<void> cleanChallenge() async {

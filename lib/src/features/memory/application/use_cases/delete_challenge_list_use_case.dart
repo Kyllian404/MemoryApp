@@ -2,6 +2,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memoryapp/src/exceptions/app_exception.dart';
 import 'package:memoryapp/src/features/memory/application/providers/memo_providers.dart';
+import 'package:memoryapp/src/features/memory/domain/memo.dart';
 import 'package:memoryapp/src/features/memory/persistance/i_memory_repository.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 

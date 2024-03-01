@@ -18,7 +18,7 @@ class GuessingModal extends ConsumerStatefulWidget {
   final BuildContext parentContext;
   final void Function(BuildContext) callback;
   final String wordUser;
-  final num idItemList;
+  final int idItemList;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _GuessingModalState();
@@ -44,7 +44,7 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
   }
 
   void _showResultModal({required BuildContext context, required bool isSuccess}) {
-    final resultMessage = isSuccess ? "Félicitations! Le mot était : ${widget.wordUser}" : "Encouragements! Essayez encore. Le mot était : ${widget.wordUser}";
+    final resultMessage = isSuccess ? "Félicitations! Le mot était : ${widget.wordUser} + ${widget.idItemList}" : "Encouragements! Essayez encore. Le mot était : ${widget.wordUser}";
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -55,6 +55,12 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
             TextButton(
               child: const Text("Fermer"),
               onPressed: () {
+                //! Ici je dois envoyer la positionId à mon controller 
+                if (isSuccess) {
+                // Ici, nous envoyons la positionId à notre controller
+                final controller = ref.read(memoControllerProvider.notifier);
+                controller.cleanGuess(widget.idItemList); // Supposons que cette méthode existe dans votre controller
+              }
                 Navigator.of(context).pop(); // Ferme la modal de résultat
                 widget.callback(widget.parentContext); // Callback pour notifier le widget parent
               },
@@ -67,6 +73,9 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
 
   @override
   Widget build(BuildContext context) {
+
+    final controller = ref.read(memoControllerProvider.notifier);
+
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
