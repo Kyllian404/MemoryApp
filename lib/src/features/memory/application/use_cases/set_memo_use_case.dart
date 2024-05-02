@@ -20,7 +20,6 @@ class SetMemoUseCase {
     if (datas.hasValue) {
       final memoList = datas.value!;
       memoList.add(Memo(datetime: dTPickerUser, textUser: textUser, nameRandom: 'nameRandom', guess: false));
-      print('dTPicker memo use case ${dTPickerUser.toString()} ');
       await repo.setMemo(memoList);
       ref.read(memoListProvider.notifier).change(memoList);
     }

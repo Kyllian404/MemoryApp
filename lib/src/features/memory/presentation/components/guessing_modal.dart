@@ -1,9 +1,5 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:memoryapp/src/constants/app_colors.dart';
 import 'package:memoryapp/src/features/memory/presentation/controllers/memory_controller.dart';
 
 class GuessingModal extends ConsumerStatefulWidget {
@@ -33,11 +29,21 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
     super.dispose();
   }
 
-  void _handleUserGuess() {
+  void _handleUserGuess() async {
     if (_userInputController.text.trim().toLowerCase() == widget.wordUser.trim().toLowerCase()) {
+      final controller = ref.read(memoControllerProvider.notifier);
+      print("${widget.idItemList}");
+      await controller.cleanGuess(widget.idItemList);
+      Navigator.of(context).pop();
+      print("Popup 2");
       // Utilisateur a correctement deviné
       _showResultModal(context: widget.parentContext, isSuccess: true);
     } else {
+      final controller = ref.read(memoControllerProvider.notifier);
+      print("${widget.idItemList}");
+      controller.cleanGuess(widget.idItemList);
+      Navigator.of(context).pop();
+      print("Popup 2");
       // Utilisateur n'a pas correctement deviné
       _showResultModal(context: widget.parentContext, isSuccess: false);
     }
@@ -54,15 +60,17 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
           actions: <Widget>[
             TextButton(
               child: const Text("Fermer"),
-              onPressed: () {
+              onPressed: () async {
                 //! Ici je dois envoyer la positionId à mon controller 
-                if (isSuccess) {
-                // Ici, nous envoyons la positionId à notre controller
-                final controller = ref.read(memoControllerProvider.notifier);
-                controller.cleanGuess(widget.idItemList); // Supposons que cette méthode existe dans votre controller
-              }
+               print("Popup 3");
+               // Ici, nous envoyons la positionId à notre controller
+               //final controller = ref.read(memoControllerProvider.notifier);
+               //await controller.cleanGuess(widget.idItemList);
+               
+               //if(context.mounted){
                 Navigator.of(context).pop(); // Ferme la modal de résultat
-                widget.callback(widget.parentContext); // Callback pour notifier le widget parent
+               // widget.callback(widget.parentContext); // Callback pour notifier le widget parent
+               //}
               },
             ),
           ],
@@ -74,7 +82,7 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
   @override
   Widget build(BuildContext context) {
 
-    final controller = ref.read(memoControllerProvider.notifier);
+    //final controller = ref.read(memoControllerProvider.notifier);
 
     return Dialog(
       child: Column(
@@ -90,7 +98,8 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
             ),
           ),
           ElevatedButton(
-            onPressed: _handleUserGuess,
+            onPressed: 
+            _handleUserGuess,
             child: const Text("Soumettre"),
           ),
         ],

@@ -23,6 +23,11 @@ class MemoController extends _$MemoController {
     final repo = ref.read(removeMemoChallengeListUseCaseProvider);
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => repo.execute(positionId));
+    // if(result.hasError) {
+    //   state = AsyncError(result.error!, result.stackTrace!);
+    // } else {
+    //   state = const AsyncData(null);
+    // }
   }
     /// Pour vider la challengelist
   Future<void> cleanChallenge() async {

@@ -13,9 +13,6 @@ class ListMemoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final challengeList = ref.watch(memoListProvider);
     final controller = ref.read(memoControllerProvider.notifier);
-    //! TODO Mettre en place le booléen qui affichera une tuile
-    //! différente lorsque l'on peut deviner ou non
-    //final guessState = ref.watch(memoControllerProvider);
     print('Les datas : ${challengeList.toString()}');
     return Scaffold(
       appBar: AppBar(
@@ -130,6 +127,7 @@ class ListMemoryPage extends ConsumerWidget {
                                 ),
                                 TextButton(
                                     onPressed: () {
+                                      print("Popup 1");
                                       // Ferme la boîte de dialogue actuelle avant d'ouvrir la nouvelle
                                       Navigator.of(context).pop();
 

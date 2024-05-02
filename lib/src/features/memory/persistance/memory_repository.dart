@@ -64,7 +64,8 @@ class MemoryRepository implements IMemoryRepository {
   
   // On supprime le memo à l'index spécifié
   currentList.removeAt(memoId);
-
+  
+  //!en dessous j'ai besoin de wait? 
   // On transforme la liste mise à jour en JSON
   final List<Map<String, dynamic>> updatedListJson = currentList.map((memo) => memo.toJson()).toList();
 

@@ -19,7 +19,7 @@ class RemoveMemoChallengeListUseCase {
     if (datas.hasValue) {
       final memoList = datas.value!;
       
-      await repo.cleanGuess(positionId);
+      repo.cleanGuess(positionId);
       ref.read(memoListProvider.notifier).change(memoList);
     }
    } catch (e) {
