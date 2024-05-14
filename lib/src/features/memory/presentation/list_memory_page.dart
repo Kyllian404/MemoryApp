@@ -116,40 +116,16 @@ class ListMemoryPage extends ConsumerWidget {
                         if (isPast) {
                           showDialog(
                             context: context,
-                            builder: (context) => AlertDialog(
-                              title: const Text('Do a guess'),
-                              content: Text(
-                                  'Would you do a guess for the challenge number $index ?'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.of(context).pop(),
-                                  child: const Text('Cancel'),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      print("Popup 1");
-                                      // Ferme la boîte de dialogue actuelle avant d'ouvrir la nouvelle
-                                      Navigator.of(context).pop();
-
-                                      // Remplacer ceci par votre appel à GuessingModal
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) =>
-                                            GuessingModal(
-                                          parentContext: context,
-                                          callback: (BuildContext context) {
-                                            // Votre logique de callback ici, par exemple, rafraîchir l'état ou effectuer une suppression
-                                            print(
-                                                "Callback action after GuessingModal");
-                                          },
-                                          wordUser: data[index].textUser, // Remplacer par la donnée pertinente
-                                          idItemList:
-                                              index, // Supposant que `index` est votre idItemList
-                                        ),
-                                      );
-                                    },
-                                    child: const Text('Confirm'))
-                              ],
+                            builder: (BuildContext context) => GuessingModal(
+                              parentContext: context,
+                              callback: (BuildContext context) {
+                                // Votre logique de callback ici, par exemple, rafraîchir l'état ou effectuer une suppression
+                                print("Callback action after GuessingModal");
+                              },
+                              wordUser: data[index]
+                                  .textUser, // Remplacer par la donnée pertinente
+                              idItemList:
+                                  index, // Supposant que `index` est votre idItemList
                             ),
                           );
                         }
