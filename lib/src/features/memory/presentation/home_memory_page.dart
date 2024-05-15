@@ -60,7 +60,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
 
         final Duration difference = pickedDateTime.difference(now);
 
-        if (difference.inMinutes < 5) {
+/*         if (difference.inMinutes < 5) {
           // Afficher un message si la durée est inférieure à 5 minutes
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -68,7 +68,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
             ),
           );
           return;
-        }
+        } */
 
         setState(() {
           _pickedDateTime = pickedDateTime;

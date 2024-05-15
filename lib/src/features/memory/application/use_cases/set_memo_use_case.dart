@@ -14,9 +14,9 @@ class SetMemoUseCase {
 
   Future<void> execute(DateTime dTPickerUser, String textUser) async {
    try{
-     final repo = ref.read(memoryRepositoryProvider);
+      final repo = ref.read(memoryRepositoryProvider);
+      final datas = ref.read(memoListProvider);
 
-    final datas = ref.read(memoListProvider);
     if (datas.hasValue) {
       final memoList = datas.value!;
       memoList.add(Memo(datetime: dTPickerUser, textUser: textUser, nameRandom: 'nameRandom', guess: false));

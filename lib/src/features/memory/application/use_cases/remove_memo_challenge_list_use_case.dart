@@ -12,23 +12,25 @@ class RemoveMemoChallengeListUseCase {
   final Ref ref;
 
   Future<void> execute(int positionId) async {
-   try{
-     final repo = ref.read(memoryRepositoryProvider);
+    try {
+      final repo = ref.read(memoryRepositoryProvider);
+      final datas = ref.read(memoListProvider);
 
-    final datas = ref.read(memoListProvider);
-    if (datas.hasValue) {
-      final memoList = datas.value!;
+      if (datas.hasValue) {
+        final memoList = datas.value!;
       
-      repo.cleanGuess(positionId);
-      ref.read(memoListProvider.notifier).change(memoList);
+        await repo.cleanGuess(positionId);
+        
+        ref.read(memoListProvider.notifier).change(memoList);
+      }
+    } catch (e) {
+      throw AppException.unknownError();
     }
-   } catch (e) {
-    throw AppException.unknownError();
-   }
   }
 }
 
 @riverpod
-RemoveMemoChallengeListUseCase removeMemoChallengeListUseCase (RemoveMemoChallengeListUseCaseRef ref) {
+RemoveMemoChallengeListUseCase removeMemoChallengeListUseCase(
+    RemoveMemoChallengeListUseCaseRef ref) {
   return RemoveMemoChallengeListUseCase(ref);
 }

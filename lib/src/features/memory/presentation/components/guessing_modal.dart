@@ -10,7 +10,7 @@ class GuessingModal extends ConsumerStatefulWidget {
     required this.wordUser,
     required this.idItemList,
   });
-  
+
   final BuildContext parentContext;
   final void Function(BuildContext) callback;
   final String wordUser;
@@ -30,27 +30,31 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
   }
 
   void _handleUserGuess() async {
-    if (_userInputController.text.trim().toLowerCase() == widget.wordUser.trim().toLowerCase()) {
-      final controller = ref.read(memoControllerProvider.notifier);
+    if (_userInputController.text.trim().toLowerCase() ==
+        widget.wordUser.trim().toLowerCase()) {
+      //final controller = ref.read(memoControllerProvider.notifier);
       print("${widget.idItemList}");
-      await controller.cleanGuess(widget.idItemList);
-      Navigator.of(context).pop();
+      //await controller.cleanGuess(widget.idItemList);
+      //Navigator.of(context).pop();
       print("Popup 2");
       // Utilisateur a correctement deviné
       _showResultModal(context: widget.parentContext, isSuccess: true);
     } else {
-      final controller = ref.read(memoControllerProvider.notifier);
+      //final controller = ref.read(memoControllerProvider.notifier);
       print("${widget.idItemList}");
-      controller.cleanGuess(widget.idItemList);
-      Navigator.of(context).pop();
+      //await controller.cleanGuess(widget.idItemList);
+      //Navigator.of(context).pop();
       print("Popup 2");
       // Utilisateur n'a pas correctement deviné
       _showResultModal(context: widget.parentContext, isSuccess: false);
     }
   }
 
-  void _showResultModal({required BuildContext context, required bool isSuccess}) {
-    final resultMessage = isSuccess ? "Félicitations! Le mot était : ${widget.wordUser} + ${widget.idItemList}" : "Encouragements! Essayez encore. Le mot était : ${widget.wordUser}";
+  void _showResultModal(
+      {required BuildContext context, required bool isSuccess}) {
+    final resultMessage = isSuccess
+        ? "Félicitations! Le mot était : ${widget.wordUser} + ${widget.idItemList}"
+        : "Encouragements! Essayez encore. Le mot était : ${widget.wordUser}";
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -61,16 +65,21 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
             TextButton(
               child: const Text("Fermer"),
               onPressed: () async {
-                //! Ici je dois envoyer la positionId à mon controller 
-               print("Popup 3");
-               // Ici, nous envoyons la positionId à notre controller
-               //final controller = ref.read(memoControllerProvider.notifier);
-               //await controller.cleanGuess(widget.idItemList);
-               
-               //if(context.mounted){
+                //! Ici je dois envoyer la positionId à mon controller
+                print("Popup 3");
+                // Ici, nous envoyons la positionId à notre controller
+                final controller = ref.read(memoControllerProvider.notifier);
+                final state = ref.watch(memoControllerProvider);
+                if (!state.isLoading) {
+                  await controller.cleanGuess(widget.idItemList);
+                  // Fermez la modal après le traitement
+                  Navigator.of(context).pop();
+                }
+
+                //if(context.mounted){
                 Navigator.of(context).pop(); // Ferme la modal de résultat
-               // widget.callback(widget.parentContext); // Callback pour notifier le widget parent
-               //}
+                // widget.callback(widget.parentContext); // Callback pour notifier le widget parent
+                //}
               },
             ),
           ],
@@ -81,7 +90,6 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
 
   @override
   Widget build(BuildContext context) {
-
     //final controller = ref.read(memoControllerProvider.notifier);
 
     return Dialog(
@@ -98,8 +106,7 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
             ),
           ),
           ElevatedButton(
-            onPressed: 
-            _handleUserGuess,
+            onPressed: _handleUserGuess,
             child: const Text("Soumettre"),
           ),
         ],
