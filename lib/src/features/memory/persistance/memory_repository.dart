@@ -19,7 +19,7 @@ class MemoryRepository implements IMemoryRepository {
     final json = await ref.read(localDbProvider).getData('memolist');
 
     /// Si la liste n'est pas vide on transforme le json en Liste de Memo
-    if(json != null && json.isNotEmpty) {
+    if (json != null && json.isNotEmpty) {
       for (var memo in json) {
         if (memo is Map<String, dynamic>) {
           result.add(Memo.fromJson(memo));
@@ -36,47 +36,49 @@ class MemoryRepository implements IMemoryRepository {
     //* Liste vide pour recevoir le resultat serialisé
     final datas = <Map<String, dynamic>>[];
 
-    try{
-    //* Si la liste n'est pas vide on transforme le json en Liste de Memo
-    if(memos.isNotEmpty) {
-      for (Memo memo in memos){
-        datas.add(memo.toJson());
+    try {
+      //* Si la liste n'est pas vide on transforme le json en Liste de Memo
+      if (memos.isNotEmpty) {
+        for (Memo memo in memos) {
+          datas.add(memo.toJson());
+        }
+        //* Puis on envoie le Json sur sembast
+        await ref.read(localDbProvider).setData('memolist', datas);
       }
-    //* Puis on envoie le Json sur sembast  
-    await ref.read(localDbProvider).setData('memolist', datas);
-    }
     } catch (e) {
       throw AppException.unknownError();
     }
   }
 
- /// Pour supprimer un memo de la challengeList
+  /// Pour supprimer un memo de la challengeList
   @override
   Future<void> cleanGuess(int memoId) async {
     try {
-  // On récupère la liste actuelle des Memos
-  final currentList = await fetchMemo();
-  
-  // Vérifie si l'index est valide
-  if (memoId < 0 || memoId >= currentList.length) {
-    throw AppException.unknownError();
-  }
-  
-  // On supprime le memo à l'index spécifié
-  currentList.removeAt(memoId);
-  
-  //!en dessous j'ai besoin de wait? 
-  // On transforme la liste mise à jour en JSON
-  final List<Map<String, dynamic>> updatedListJson = currentList.map((memo) => memo.toJson()).toList();
+      // On récupère la liste actuelle des Memos
+      final currentList = await fetchMemo();
 
-  // On enregistre la nouvelle liste dans la base de données
-  await ref.read(localDbProvider).setData('memolist', updatedListJson);
-} catch (e) {
-  throw AppException.unknownError();
-}
+      // Vérifie si l'index est valide
+      if (memoId < 0 || memoId >= currentList.length) {
+        throw AppException.unknownError();
+      }
+
+      // On supprime le memo à l'index spécifié
+      currentList.removeAt(memoId);
+
+      //!en dessous j'ai besoin de wait?
+      // On transforme la liste mise à jour en JSON
+      final List<Map<String, dynamic>> updatedListJson =
+          currentList.map((memo) => memo.toJson()).toList();
+
+      // On enregistre la nouvelle liste dans la base de données
+      await ref.read(localDbProvider).setData('memolist', updatedListJson);
+      
+    } catch (e) {
+      throw AppException.unknownError();
+    }
   }
 
- /// Pour vider la challengeList
+  /// Pour vider la challengeList
   @override
   Future<void> cleanChallenge() async {
     try {
@@ -86,5 +88,4 @@ class MemoryRepository implements IMemoryRepository {
       throw AppException.unknownError();
     }
   }
-
 }
