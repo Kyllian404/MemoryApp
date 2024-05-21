@@ -9,7 +9,7 @@ abstract class IMemoryRepository {
   Future<List<Memo>> fetchMemo();
   Future<void> setMemo(List<Memo> memos);
   Future<void> cleanChallenge();
-  Future<void> cleanGuess(int memoId);
+  Future<void> cleanGuess(List<Memo> memos);
 }
 
 @Riverpod(keepAlive: true)

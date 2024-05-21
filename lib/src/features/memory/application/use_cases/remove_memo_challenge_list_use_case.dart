@@ -18,9 +18,17 @@ class RemoveMemoChallengeListUseCase {
 
       if (datas.hasValue) {
         final memoList = datas.value!;
-      
-        await repo.cleanGuess(positionId);
-        
+
+        // Vérifie si l'index est valide
+        if (positionId < 0 || positionId >= memoList.length) {
+          throw AppException.unknownError();
+        }
+
+        // On supprime le memo à l'index spécifié
+        memoList.removeAt(positionId);
+
+        await repo.cleanGuess(memoList);
+
         ref.read(memoListProvider.notifier).change(memoList);
       }
     } catch (e) {
