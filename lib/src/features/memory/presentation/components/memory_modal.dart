@@ -25,7 +25,7 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
   int _currentStep = 0;
   final _wordController = TextEditingController();
 
-  int remainingTime = 30; // Temps restant en seconde pour le compte à rebours
+  int remainingTime = 30; 
   Timer? countdownTimer;
 
   @override
@@ -35,21 +35,19 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
   }
 
   void startCountdown() {
-    countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+    countdownTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (remainingTime > 0) {
         setState(() {
           remainingTime--;
         });
       } else {
         timer.cancel();
-        // Action à la fin du compte à rebours
         onCountdownFinished(ref);
       }
     });
   }
 
   void onCountdownFinished(WidgetRef ref) {
-    // Enregistrez les informations ici et fermez la modal
     final controller = ref.read(memoControllerProvider.notifier);
     controller.setMemo(widget.datePickerUser, _wordController.text);
     Navigator.of(context).pop();
@@ -73,11 +71,10 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
         (_, state) => state.showAlertDialogOnError(context),
       );
 
-      print('${state.toString()}');
 
       // construire l'ui
 
-      List<Widget> _buildWordSelection() {
+      List<Widget> buildWordSelection() {
         return [
           Text(
             'Select',
@@ -99,7 +96,6 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
             ),
             onPressed: () {
               // Logique du bouton supplémentaire
-              print('Random word press');
             },
             child: Text(
               'a Random Word',
@@ -160,7 +156,6 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
               ),
               TextButton(
                 onPressed: () {
-                  print(_wordController.text);
                   setState(() => _currentStep = 1);
                   startCountdown();
                 },
@@ -184,12 +179,12 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
         ];
       }
 
-      List<Widget> _buildShowWord() {
+      List<Widget> buildShowWord() {
         return [
           Text(
             '$remainingTime s',
             style: GoogleFonts.koulen(
-              color: Colors.red, // Couleur rouge comme demandé
+              color: Colors.red, 
               fontSize: 32,
             ),
           ),
@@ -204,13 +199,12 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
             padding: const EdgeInsets.all(50.0),
             child: Container(
               padding: const EdgeInsets.all(5),
-              width: 240, // Ajoutez du padding autour du texte
+              width: 240, 
               decoration: BoxDecoration(
-                color: AppColors.fondBtn, // Couleur de fond du rectangle
+                color: AppColors.fondBtn, 
                 borderRadius:
-                    BorderRadius.circular(5), // Bord arrondi (optionnel)
+                    BorderRadius.circular(5), 
                 border: Border.all(color: Colors.black, width: 1.5),
-                // Ajoutez d'autres décorations comme boxShadow, border, etc.
               ),
               child: Text(
                 _wordController.text,
@@ -230,7 +224,6 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
                   if (!state.isLoading) {
                     controller.setMemo(
                         widget.datePickerUser, _wordController.text);
-                    // Fermez la modal après le traitement
                     Navigator.of(context).pop();
                   }
                 },
@@ -257,19 +250,13 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
         ];
       }
 
-      @override
-      void dispose() {
-        // S'assurer de nettoyer le contrôleur quand le widget est supprimé
-        _wordController.dispose();
-        super.dispose();
-      }
 
-      List<Widget> _buildDialogContent() {
+      List<Widget> buildDialogContent() {
         switch (_currentStep) {
           case 0:
-            return _buildWordSelection();
+            return buildWordSelection();
           case 1:
-            return _buildShowWord();
+            return buildShowWord();
 
           default:
             return [const SizedBox()];
@@ -284,7 +271,7 @@ class _MemoryModalState extends ConsumerState<MemoryModal> {
                 0.9, // Largeur proportionnelle à l'écran,
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              children: _buildDialogContent(),
+              children: buildDialogContent(),
             ),
           )
         ],

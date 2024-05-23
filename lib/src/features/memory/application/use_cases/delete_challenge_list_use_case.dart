@@ -13,16 +13,11 @@ class DeleteChallengListUseCase {
 
   Future<void> execute() async {
     try {
-      // Accès au repository
       final repo = ref.read(memoryRepositoryProvider);
-      
 
-      // Tentative de suppression de tous les éléments de la liste
       await repo.cleanChallenge();
 
-      // Mise à jour de l'état pour refléter la liste vide
       ref.read(memoListProvider.notifier).change([]);
-
     } catch (e) {
       throw AppException.unknownError();
     }

@@ -13,33 +13,21 @@ class MemoController extends _$MemoController {
   /// Pour ajouter un memo à la challengelist
   FutureOr<void> setMemo(DateTime dTPickerUser, String textUser) async {
     final useCase = ref.read(setMemoUseCaseProvider);
-    print('dTPicker memo controller ${dTPickerUser.toString()} + ${textUser.toString()} + ${useCase.toString()}');
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => useCase.execute(dTPickerUser, textUser));
   }
 
-    /// Pour retirer un memo de la challengelist
+  /// Pour retirer un memo de la challengelist
   Future<void> cleanGuess(int positionId) async {
     final repo = ref.read(removeMemoChallengeListUseCaseProvider);
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => repo.execute(positionId));
-    // if(result.hasError) {
-    //   state = AsyncError(result.error!, result.stackTrace!);
-    // } else {
-    //   state = const AsyncData(null);
-    // }
   }
-    /// Pour vider la challengelist
+
+  /// Pour vider la challengelist
   Future<void> cleanChallenge() async {
     final repo = ref.read(deleteChallengListUseCaseProvider);
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() => repo.execute());
   }
-
-  //! TODO Controller pour la tuile de guess d'UI
-  // FutureOr<void> guessTime(bool flag, int pos) async {
-  //   final useCase = ref.read(toggleGuessUseCaseProvider);
-  //   state = const AsyncValue.loading();
-  //   state = await AsyncValue.guard(() => useCase.execute(flag, pos));
-  // }
 }

@@ -25,7 +25,6 @@ void main() async {
       ),
     );
   } catch (e) {
-    // Gérer l'erreur d'initialisation
-    print("Erreur lors de l'initialissation de la base de données Sembast: $e");
+    //TODO Gérer l'erreur d'initialisation
   }
 }

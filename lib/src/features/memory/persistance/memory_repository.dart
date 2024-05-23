@@ -12,13 +12,10 @@ class MemoryRepository implements IMemoryRepository {
   /// Pour lire la memolist
   @override
   Future<List<Memo>> fetchMemo() async {
-    /// Liste vide pour recevoir le resultat serialisé
     final result = <Memo>[];
 
-    /// On récupère le Json sur sembast
     final json = await ref.read(localDbProvider).getData('memolist');
 
-    /// Si la liste n'est pas vide on transforme le json en Liste de Memo
     if (json != null && json.isNotEmpty) {
       for (var memo in json) {
         if (memo is Map<String, dynamic>) {
@@ -33,16 +30,14 @@ class MemoryRepository implements IMemoryRepository {
   /// Pour ajouter un memo
   @override
   Future<void> setMemo(List<Memo> memos) async {
-    //* Liste vide pour recevoir le resultat serialisé
     final datas = <Map<String, dynamic>>[];
 
     try {
-      //* Si la liste n'est pas vide on transforme le json en Liste de Memo
       if (memos.isNotEmpty) {
         for (Memo memo in memos) {
           datas.add(memo.toJson());
         }
-        //* Puis on envoie le Json sur sembast
+
         await ref.read(localDbProvider).setData('memolist', datas);
       }
     } catch (e) {
@@ -54,16 +49,10 @@ class MemoryRepository implements IMemoryRepository {
   @override
   Future<void> cleanGuess(List<Memo> memos) async {
     try {
-     
-
-      //!en dessous j'ai besoin de wait?
-      // On transforme la liste mise à jour en JSON
       final List<Map<String, dynamic>> updatedListJson =
           memos.map((memo) => memo.toJson()).toList();
 
-      // On enregistre la nouvelle liste dans la base de données
       await ref.read(localDbProvider).setData('memolist', updatedListJson);
-      
     } catch (e) {
       throw AppException.unknownError();
     }

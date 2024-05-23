@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:memoryapp/src/features/memory/presentation/controllers/memory_controller.dart';
@@ -32,20 +34,8 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
   void _handleUserGuess() async {
     if (_userInputController.text.trim().toLowerCase() ==
         widget.wordUser.trim().toLowerCase()) {
-      //final controller = ref.read(memoControllerProvider.notifier);
-      print("${widget.idItemList}");
-      //await controller.cleanGuess(widget.idItemList);
-      //Navigator.of(context).pop();
-      print("Popup 2");
-      // Utilisateur a correctement deviné
       _showResultModal(context: widget.parentContext, isSuccess: true);
     } else {
-      //final controller = ref.read(memoControllerProvider.notifier);
-      print("${widget.idItemList}");
-      //await controller.cleanGuess(widget.idItemList);
-      //Navigator.of(context).pop();
-      print("Popup 2");
-      // Utilisateur n'a pas correctement deviné
       _showResultModal(context: widget.parentContext, isSuccess: false);
     }
   }
@@ -65,21 +55,13 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
             TextButton(
               child: const Text("Fermer"),
               onPressed: () async {
-                //! Ici je dois envoyer la positionId à mon controller
-                print("Popup 3");
-                // Ici, nous envoyons la positionId à notre controller
                 final controller = ref.read(memoControllerProvider.notifier);
                 final state = ref.watch(memoControllerProvider);
                 if (!state.isLoading) {
                   await controller.cleanGuess(widget.idItemList);
-                  // Fermez la modal après le traitement
                   Navigator.of(context).pop();
                 }
-
-                //if(context.mounted){
-                Navigator.of(context).pop(); // Ferme la modal de résultat
-                // widget.callback(widget.parentContext); // Callback pour notifier le widget parent
-                //}
+                Navigator.of(context).pop(); 
               },
             ),
           ],
@@ -90,8 +72,6 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
 
   @override
   Widget build(BuildContext context) {
-    //final controller = ref.read(memoControllerProvider.notifier);
-
     return Dialog(
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -100,7 +80,7 @@ class _GuessingModalState extends ConsumerState<GuessingModal> {
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: _userInputController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: "Devinez le mot...",
               ),
             ),

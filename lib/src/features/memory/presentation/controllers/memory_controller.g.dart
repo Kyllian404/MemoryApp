@@ -6,7 +6,7 @@ part of 'memory_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$memoControllerHash() => r'd3fcdfac59e6a16b8c1d323c22044d9f337c7b2a';
+String _$memoControllerHash() => r'748575bbddf1fecd90b17d9bbfe6be9d332208b9';
 
 /// See also [MemoController].
 @ProviderFor(MemoController)

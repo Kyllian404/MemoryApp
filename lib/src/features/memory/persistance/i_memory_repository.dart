@@ -13,6 +13,6 @@ abstract class IMemoryRepository {
 }
 
 @Riverpod(keepAlive: true)
-IMemoryRepository memoryRepository (MemoryRepositoryRef ref) {
+IMemoryRepository memoryRepository(MemoryRepositoryRef ref) {
   return MemoryRepository(ref);
 }

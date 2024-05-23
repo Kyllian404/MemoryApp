@@ -13,7 +13,6 @@ class ListMemoryPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final challengeList = ref.watch(memoListProvider);
     final controller = ref.read(memoControllerProvider.notifier);
-    print('Les datas : ${challengeList.toString()}');
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
@@ -30,7 +29,7 @@ class ListMemoryPage extends ConsumerWidget {
               onPressed: () {
                 controller.cleanChallenge();
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Ce btn sert à la suppresion de la liste.')));
+                    content: Text('Your list has been deleted.')));
               },
               icon: const Icon(Icons.settings))
         ],
@@ -120,17 +119,14 @@ class ListMemoryPage extends ConsumerWidget {
                             builder: (BuildContext context) => GuessingModal(
                               parentContext: context,
                               callback: (BuildContext context) {
-                                // Votre logique de callback ici, par exemple, rafraîchir l'état ou effectuer une suppression
-                                print("Callback action after GuessingModal");
                               },
                               wordUser: data[index]
-                                  .textUser, // Remplacer par la donnée pertinente
+                                  .textUser, 
                               idItemList:
-                                  index, // Supposant que `index` est votre idItemList
+                                  index, 
                             ),
                           );
                         }
-                        print('${data[index].datetime} + $isPast');
                       },
                     ),
                   );

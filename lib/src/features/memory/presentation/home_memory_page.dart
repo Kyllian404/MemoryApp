@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:memoryapp/src/constants/app_colors.dart';
@@ -14,7 +16,6 @@ class HomeMemoryPage extends StatefulWidget {
 }
 
 class _HomeMemoryPageState extends State<HomeMemoryPage> {
-  //final controller = ref.read(memoControllerProvider.notifier);
 
   late DateTime _pickedDateTime;
   //* Liste des défis
@@ -27,7 +28,6 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
       color2: AppColors.iconsSecondary,
       icon: Icons.format_list_bulleted_rounded,
       onTap: () {
-        print('List icon tapped!');
       },
     ),
     // Ajoutez d'autres données d'icônes ici
@@ -58,9 +58,10 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
           pickedTime.minute,
         );
 
+/*       
         final Duration difference = pickedDateTime.difference(now);
 
-/*         if (difference.inMinutes < 5) {
+        if (difference.inMinutes < 5) {
           // Afficher un message si la durée est inférieure à 5 minutes
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -74,10 +75,6 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
           _pickedDateTime = pickedDateTime;
         });
 
-        // Utilisez _pickedDateTime comme vous le souhaitez
-        print('Date et heure choisies: $_pickedDateTime');
-        print('Durée jusqu\'à la date choisie: $difference');
-        // * Appel de la modale personnalisée
         _showCustomDialog(context);
       }
     }

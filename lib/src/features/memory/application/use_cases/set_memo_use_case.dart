@@ -13,23 +13,27 @@ class SetMemoUseCase {
   final Ref ref;
 
   Future<void> execute(DateTime dTPickerUser, String textUser) async {
-   try{
+    try {
       final repo = ref.read(memoryRepositoryProvider);
       final datas = ref.read(memoListProvider);
 
-    if (datas.hasValue) {
-      final memoList = datas.value!;
-      memoList.add(Memo(datetime: dTPickerUser, textUser: textUser, nameRandom: 'nameRandom', guess: false));
-      await repo.setMemo(memoList);
-      ref.read(memoListProvider.notifier).change(memoList);
+      if (datas.hasValue) {
+        final memoList = datas.value!;
+        memoList.add(Memo(
+            datetime: dTPickerUser,
+            textUser: textUser,
+            nameRandom: 'nameRandom',
+            guess: false));
+        await repo.setMemo(memoList);
+        ref.read(memoListProvider.notifier).change(memoList);
+      }
+    } catch (e) {
+      throw AppException.unknownError();
     }
-   } catch (e) {
-    throw AppException.unknownError();
-   }
   }
 }
 
 @riverpod
-SetMemoUseCase setMemoUseCase (SetMemoUseCaseRef ref) {
+SetMemoUseCase setMemoUseCase(SetMemoUseCaseRef ref) {
   return SetMemoUseCase(ref);
 }
