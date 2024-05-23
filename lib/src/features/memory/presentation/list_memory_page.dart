@@ -16,6 +16,7 @@ class ListMemoryPage extends ConsumerWidget {
     print('Les datas : ${challengeList.toString()}');
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         backgroundColor: AppColors.fondApp,
         title: Text(
           "M3M0RY",
