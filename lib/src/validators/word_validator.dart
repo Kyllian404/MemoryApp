@@ -14,7 +14,7 @@ class SpaceEscapeValidator implements StringValidator {
   }
 }
 
-/// Validator pour les champs de texts de types Pseudonymes
+/// Validator pour le champ utilisateur de création d'un guess
 class NameValidator implements StringValidator {
   @override
   String? validate(String? value) {
@@ -22,7 +22,10 @@ class NameValidator implements StringValidator {
       return "La saisie ne peut pas être vide";
     }
     if (value.length < 3) {
-      return "La saisie doit contenir au moins 3 caractères";
+      return "Ton mot doit contenir au moins 3 caractères";
+    } 
+    if (value.length > 20) {
+      return "Ton mot doit contenir moins de 20 caractères";
     }
     if (RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(value)) {
       return "La saisie ne peut pas contenir de caractères spéciaux";
