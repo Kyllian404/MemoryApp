@@ -88,6 +88,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
           )
         ],
       ),
+
     );
   }
 }
