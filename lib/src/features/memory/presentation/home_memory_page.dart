@@ -54,6 +54,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(vertical: 20.0),
+
               /// Zone Daily challenge
               child: Container(
                 width: 340,
@@ -83,12 +84,48 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
           ),
           Row(
             children: [
-              
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: AppColors.fondApp,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: const [
+                      BoxShadow(
+                        blurStyle: BlurStyle.inner,
+                        color: Color.fromARGB(80, 255, 255, 255),
+                        offset: Offset(0, -3),
+                        blurRadius: 3,
+                        spreadRadius: -0.5,
+                      ),
+                      BoxShadow(
+                        blurStyle: BlurStyle.outer,
+                        color: Color.fromARGB(80, 0, 0, 0),
+                        offset: Offset(0, 3),
+                        blurRadius: 4,
+                        spreadRadius: 0,
+                      ),
+                    ],
+                  ),
+                  child: const Center(
+                    child: Icon(
+                      Icons.list_rounded,
+                      color: AppColors.iconsPrimary,
+                      size: 80,
+                    ),
+                  ),
+                ),
+                splashColor: Color.fromARGB(0, 0, 0, 0),
+                autofocus: false,
+                borderRadius: BorderRadius.circular(20),
+
+              ),
             ],
           )
         ],
       ),
-
     );
   }
 }

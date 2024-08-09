@@ -9,5 +9,5 @@ class AppColors {
   static const fondBtnCancel = Color(0xFFFF6347);
   static const iconsPrimary = Color(0xFF34D9C9);
   static const iconsSecondary = Color(0xFFFF90C2);
-  static const shadeBtnForm = Color(0x00000000);
+  static const shadeBtnForm = Color.fromARGB(130, 0, 0, 0);
 }
