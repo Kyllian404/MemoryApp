@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:memoryapp/src/constants/app_colors.dart';
 
@@ -14,8 +12,14 @@ enum SampleItem { profile, settings, preferences }
 
 class _HomeMemoryPageState extends State<HomeMemoryPage> {
   SampleItem? selectedItem;
+
   @override
   Widget build(BuildContext context) {
+    // Get screen dimensions
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    final isPortrait = screenHeight > screenWidth;
+
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
@@ -29,15 +33,15 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
             itemBuilder: (BuildContext context) => <PopupMenuEntry<SampleItem>>[
               const PopupMenuItem<SampleItem>(
                 value: SampleItem.profile,
-                child: Text('profile'),
+                child: Text('Profile'),
               ),
               const PopupMenuItem<SampleItem>(
                 value: SampleItem.settings,
-                child: Text('settings'),
+                child: Text('Settings'),
               ),
               const PopupMenuItem<SampleItem>(
                 value: SampleItem.preferences,
-                child: Text('preferences'),
+                child: Text('Preferences'),
               ),
             ],
           ),
@@ -49,14 +53,13 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
       ),
       backgroundColor: AppColors.fondApp,
       body: Center(
-        child: Column(
-          children: [
-            //* Titre page
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Container(
-                width: 340,
-                height: 45,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              //* Title
+              Container(
+                width: screenWidth * 0.9,
+                height: screenHeight * 0.06,
                 decoration: BoxDecoration(
                   color: AppColors.fondApp,
                   borderRadius: BorderRadius.circular(5),
@@ -81,23 +84,19 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
                   'Memoryze',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontFamily:
-                        'Roboto', // Remplace par une autre police si souhaité
-                    fontSize: 32, // Taille de la police
-                    fontWeight: FontWeight.normal, // Epaisseur du texte
-                    color: Colors.white, // Couleur du texte
-                    letterSpacing: 2, // Espacement des lettres
-                    wordSpacing: 3, // Espacement des mots
+                    fontFamily: 'Roboto',
+                    fontSize: 32,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                    letterSpacing: 2,
+                    wordSpacing: 3,
                   ),
                 ),
               ),
-            ),
-            //* Zone Daily challenge
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Container(
-                width: 340,
-                height: 180,
+              //* Daily Challenge Area
+              Container(
+                width: screenWidth * 0.9,
+                height: screenHeight * 0.2,
                 decoration: BoxDecoration(
                   color: AppColors.fondApp,
                   borderRadius: BorderRadius.circular(5),
@@ -122,473 +121,181 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
                   textAlign: TextAlign.center,
                   'Daily Challenge',
                   style: TextStyle(
-                    fontFamily:
-                        'Roboto', // Remplace par une autre police si souhaité
-                    fontSize: 28, // Taille de la police
-                    fontWeight: FontWeight.normal, // Epaisseur du texte
-                    color: Colors.white, // Couleur du texte
-                    letterSpacing: 2, // Espacement des lettres
-                    wordSpacing: 3, // Espacement des mots
+                    fontFamily: 'Roboto',
+                    fontSize: 28,
+                    fontWeight: FontWeight.normal,
+                    color: Colors.white,
+                    letterSpacing: 2,
+                    wordSpacing: 3,
                     fontStyle: FontStyle.italic,
                   ),
                 ),
               ),
-            ),
-
-            Padding(
-              padding: const EdgeInsets.only(left: 38.0),
-              child: Column(
-                children: [
-                  Row(
-                    //* Time Challenge List
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15.0),
-                        child: InkResponse(
-                          onTap: () {
-                            // Action à exécuter lors du tapotement
-                            print("Time Challenge List");
-                          },
-                          containedInkWell:
-                              true, // Assure que l'ondulation reste contenue dans les limites du widget enfant
-                          highlightShape: BoxShape
-                              .rectangle, // Forme de l'effet d'ondulation, ici un rectangle
-                          highlightColor: Colors.black87.withOpacity(
-                              1), // Couleur de surbrillance lors de l'interaction
-                          splashColor: Colors.pink.withOpacity(
-                              1), // Couleur de l'effet d'ondulation (splash)
-                          radius:
-                              2.0, // Rayon de l'effet d'ondulation (utile si la forme est circulaire)
-                          borderRadius: BorderRadius.circular(
-                              15), // Coin arrondis pour l'ondulation
-                          enableFeedback:
-                              true, // Active le retour haptique ou sonore, selon la plateforme
-                          onTapCancel: () {
-                            // Action à exécuter si l'utilisateur annule le tapotement
-                          },
-                          onTapDown: (TapDownDetails details) {
-                            // Action à exécuter lorsque l'utilisateur commence à tapoter
-                          },
-                          onTapUp: (TapUpDetails details) {
-                            // Action à exécuter lorsque l'utilisateur relâche le tapotement
-                          },
-                          child: Container(
-                            width: 68,
-                            height: 68,
-                            decoration: BoxDecoration(
-                              color: AppColors.fondApp,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurStyle: BlurStyle.inner,
-                                  color: Color.fromARGB(80, 255, 255, 255),
-                                  offset: Offset(0, -3),
-                                  blurRadius: 4,
-                                  spreadRadius: -0.5,
-                                ),
-                                BoxShadow(
-                                  blurStyle: BlurStyle.outer,
-                                  color: Color.fromARGB(80, 0, 0, 0),
-                                  offset: Offset(0, 3),
-                                  blurRadius: 4,
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.list_rounded,
-                                color: AppColors.iconsPrimary,
-                                size: 68,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 15.0, left: 5.0),
-                        child: Text(
-                          'Time Challenge List',
-                          style: TextStyle(
-                            fontFamily:
-                                'Roboto', // Remplace par une autre police si souhaité
-                            fontSize: 24, // Taille de la police
-                            fontWeight: FontWeight.normal, // Epaisseur du texte
-                            color: AppColors.iconsPrimary, // Couleur du texte
-                            letterSpacing: 2, // Espacement des lettres
-                            wordSpacing: 3, // Espacement des mots
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    //* Match Mania
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15.0),
-                        child: InkResponse(
-                          onTap: () {
-                            // Action à exécuter lors du tapotement
-                            print("Match Mania");
-                          },
-                          containedInkWell:
-                              true, // Assure que l'ondulation reste contenue dans les limites du widget enfant
-                          highlightShape: BoxShape
-                              .rectangle, // Forme de l'effet d'ondulation, ici un rectangle
-                          highlightColor: Colors.black87.withOpacity(
-                              1), // Couleur de surbrillance lors de l'interaction
-                          splashColor: Colors.pink.withOpacity(
-                              1), // Couleur de l'effet d'ondulation (splash)
-                          radius:
-                              2.0, // Rayon de l'effet d'ondulation (utile si la forme est circulaire)
-                          borderRadius: BorderRadius.circular(
-                              15), // Coin arrondis pour l'ondulation
-                          enableFeedback:
-                              true, // Active le retour haptique ou sonore, selon la plateforme
-                          onTapCancel: () {
-                            // Action à exécuter si l'utilisateur annule le tapotement
-                          },
-                          onTapDown: (TapDownDetails details) {
-                            // Action à exécuter lorsque l'utilisateur commence à tapoter
-                          },
-                          onTapUp: (TapUpDetails details) {
-                            // Action à exécuter lorsque l'utilisateur relâche le tapotement
-                          },
-                          child: Container(
-                            width: 68,
-                            height: 68,
-                            decoration: BoxDecoration(
-                              color: AppColors.fondApp,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurStyle: BlurStyle.inner,
-                                  color: Color.fromARGB(80, 255, 255, 255),
-                                  offset: Offset(0, -3),
-                                  blurRadius: 4,
-                                  spreadRadius: -0.5,
-                                ),
-                                BoxShadow(
-                                  blurStyle: BlurStyle.outer,
-                                  color: Color.fromARGB(80, 0, 0, 0),
-                                  offset: Offset(0, 3),
-                                  blurRadius: 4,
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.autorenew_rounded,
-                                color: AppColors.iconsPrimary,
-                                size: 68,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 15.0, left: 5.0),
-                        child: Text(
-                          'Match Mania',
-                          style: TextStyle(
-                            fontFamily:
-                                'Roboto', // Remplace par une autre police si souhaité
-                            fontSize: 24, // Taille de la police
-                            fontWeight: FontWeight.normal, // Epaisseur du texte
-                            color: AppColors.iconsPrimary, // Couleur du texte
-                            letterSpacing: 2, // Espacement des lettres
-                            wordSpacing: 3, // Espacement des mots
-                          ),
-                          textAlign: TextAlign.center, // Alignement du texte
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    //* Sequence Master
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15.0),
-                        child: InkResponse(
-                          onTap: () {
-                            // Action à exécuter lors du tapotement
-                            print("Sequence Master");
-                          },
-                          containedInkWell:
-                              true, // Assure que l'ondulation reste contenue dans les limites du widget enfant
-                          highlightShape: BoxShape
-                              .rectangle, // Forme de l'effet d'ondulation, ici un rectangle
-                          highlightColor: Colors.black87.withOpacity(
-                              1), // Couleur de surbrillance lors de l'interaction
-                          splashColor: Colors.pink.withOpacity(
-                              1), // Couleur de l'effet d'ondulation (splash)
-                          radius:
-                              2.0, // Rayon de l'effet d'ondulation (utile si la forme est circulaire)
-                          borderRadius: BorderRadius.circular(
-                              15), // Coin arrondis pour l'ondulation
-                          enableFeedback:
-                              true, // Active le retour haptique ou sonore, selon la plateforme
-                          onTapCancel: () {
-                            // Action à exécuter si l'utilisateur annule le tapotement
-                          },
-                          onTapDown: (TapDownDetails details) {
-                            // Action à exécuter lorsque l'utilisateur commence à tapoter
-                          },
-                          onTapUp: (TapUpDetails details) {
-                            // Action à exécuter lorsque l'utilisateur relâche le tapotement
-                          },
-                          child: Container(
-                            width: 68,
-                            height: 68,
-                            decoration: BoxDecoration(
-                              color: AppColors.fondApp,
-                              borderRadius: BorderRadius.circular(15),
-                              boxShadow: const [
-                                BoxShadow(
-                                  blurStyle: BlurStyle.inner,
-                                  color: Color.fromARGB(80, 255, 255, 255),
-                                  offset: Offset(0, -3),
-                                  blurRadius: 4,
-                                  spreadRadius: -0.5,
-                                ),
-                                BoxShadow(
-                                  blurStyle: BlurStyle.outer,
-                                  color: Color.fromARGB(80, 0, 0, 0),
-                                  offset: Offset(0, 3),
-                                  blurRadius: 4,
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.calendar_view_month_rounded,
-                                color: AppColors.iconsPrimary,
-                                size: 68,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const Padding(
-                        padding: EdgeInsets.only(top: 15.0, left: 5.0),
-                        child: Text(
-                          'Sequence Master',
-                          style: TextStyle(
-                            fontFamily:
-                                'Roboto', // Remplace par une autre police si souhaité
-                            fontSize: 24, // Taille de la police
-                            fontWeight: FontWeight.normal, // Epaisseur du texte
-                            color: AppColors.iconsPrimary, // Couleur du texte
-                            letterSpacing: 2, // Espacement des lettres
-                            wordSpacing: 3, // Espacement des mots
-                          ),
-                          textAlign: TextAlign.center, // Alignement du texte
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              //* Icons and Labels
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth * 0.1),
+                child: Column(
+                  children: [
+                    buildRowItem(
+                      context,
+                      screenWidth,
+                      screenHeight,
+                      'Time Challenge List',
+                      Icons.list_rounded,
+                    ),
+                    buildRowItem(
+                      context,
+                      screenWidth,
+                      screenHeight,
+                      'Match Mania',
+                      Icons.autorenew_rounded,
+                    ),
+                    buildRowItem(
+                      context,
+                      screenWidth,
+                      screenHeight,
+                      'Sequence Master',
+                      Icons.calendar_view_month_rounded,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: Row(
-        //* Home
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: InkResponse(
-              onTap: () {
-                // Action à exécuter lors du tapotement
-                print("You are ready on Home");
-              },
-              containedInkWell:
-                  true, // Assure que l'ondulation reste contenue dans les limites du widget enfant
-              highlightShape: BoxShape
-                  .rectangle, // Forme de l'effet d'ondulation, ici un rectangle
-              highlightColor: Colors.black87.withOpacity(
-                  1), // Couleur de surbrillance lors de l'interaction
-              splashColor: Colors.pink
-                  .withOpacity(1), // Couleur de l'effet d'ondulation (splash)
-              radius:
-                  2.0, // Rayon de l'effet d'ondulation (utile si la forme est circulaire)
-              borderRadius:
-                  BorderRadius.circular(15), // Coin arrondis pour l'ondulation
-              enableFeedback:
-                  true, // Active le retour haptique ou sonore, selon la plateforme
-              onTapCancel: () {
-                // Action à exécuter si l'utilisateur annule le tapotement
-              },
-              onTapDown: (TapDownDetails details) {
-                // Action à exécuter lorsque l'utilisateur commence à tapoter
-              },
-              onTapUp: (TapUpDetails details) {
-                // Action à exécuter lorsque l'utilisateur relâche le tapotement
-              },
-              child: Container(
-                width: 68,
-                height: 68,
-                decoration: const BoxDecoration(
-                  color: AppColors.fondApp,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      blurStyle: BlurStyle.inner,
-                      color: Color.fromARGB(80, 255, 255, 255),
-                      offset: Offset(0, -3),
-                      blurRadius: 4,
-                      spreadRadius: -0.5,
-                    ),
-                    BoxShadow(
-                      blurStyle: BlurStyle.outer,
-                      color: Color.fromARGB(80, 0, 0, 0),
-                      offset: Offset(0, 3),
-                      blurRadius: 4,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.home_filled,
-                    color: AppColors.iconsPrimary,
-                    size: 48,
-                  ),
-                ),
-              ),
-            ),
+          buildBottomNavItem(
+            context,
+            screenWidth,
+            'Home',
+            Icons.home_filled,
+            () => print("You are ready on Home"),
           ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: InkResponse(
-              onTap: () {
-                // Action à exécuter lors du tapotement
-                print("You are ready on Home");
-              },
-              containedInkWell:
-                  true, // Assure que l'ondulation reste contenue dans les limites du widget enfant
-              highlightShape: BoxShape
-                  .rectangle, // Forme de l'effet d'ondulation, ici un rectangle
-              highlightColor: Colors.black87.withOpacity(
-                  1), // Couleur de surbrillance lors de l'interaction
-              splashColor: Colors.pink
-                  .withOpacity(1), // Couleur de l'effet d'ondulation (splash)
-              radius:
-                  2.0, // Rayon de l'effet d'ondulation (utile si la forme est circulaire)
-              borderRadius:
-                  BorderRadius.circular(15), // Coin arrondis pour l'ondulation
-              enableFeedback:
-                  true, // Active le retour haptique ou sonore, selon la plateforme
-              onTapCancel: () {
-                // Action à exécuter si l'utilisateur annule le tapotement
-              },
-              onTapDown: (TapDownDetails details) {
-                // Action à exécuter lorsque l'utilisateur commence à tapoter
-              },
-              onTapUp: (TapUpDetails details) {
-                // Action à exécuter lorsque l'utilisateur relâche le tapotement
-              },
-              child: Container(
-                width: 68,
-                height: 68,
-                decoration: const BoxDecoration(
-                  color: AppColors.fondApp,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      blurStyle: BlurStyle.inner,
-                      color: Color.fromARGB(80, 255, 255, 255),
-                      offset: Offset(0, -3),
-                      blurRadius: 4,
-                      spreadRadius: -0.5,
-                    ),
-                    BoxShadow(
-                      blurStyle: BlurStyle.outer,
-                      color: Color.fromARGB(80, 0, 0, 0),
-                      offset: Offset(0, 3),
-                      blurRadius: 4,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.add,
-                    color: AppColors.iconsPrimary,
-                    size: 65,
-                  ),
-                ),
-              ),
-            ),
+          buildBottomNavItem(
+            context,
+            screenWidth,
+            'Add',
+            Icons.add,
+            () => print("Add"),
           ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: InkResponse(
-              onTap: () {
-                // Action à exécuter lors du tapotement
-                print("You are ready on Home");
-              },
-              containedInkWell:
-                  true, // Assure que l'ondulation reste contenue dans les limites du widget enfant
-              highlightShape: BoxShape
-                  .rectangle, // Forme de l'effet d'ondulation, ici un rectangle
-              highlightColor: Colors.black87.withOpacity(
-                  1), // Couleur de surbrillance lors de l'interaction
-              splashColor: Colors.pink
-                  .withOpacity(1), // Couleur de l'effet d'ondulation (splash)
-              radius:
-                  2.0, // Rayon de l'effet d'ondulation (utile si la forme est circulaire)
-              borderRadius:
-                  BorderRadius.circular(15), // Coin arrondis pour l'ondulation
-              enableFeedback:
-                  true, // Active le retour haptique ou sonore, selon la plateforme
-              onTapCancel: () {
-                // Action à exécuter si l'utilisateur annule le tapotement
-              },
-              onTapDown: (TapDownDetails details) {
-                // Action à exécuter lorsque l'utilisateur commence à tapoter
-              },
-              onTapUp: (TapUpDetails details) {
-                // Action à exécuter lorsque l'utilisateur relâche le tapotement
-              },
-              child: Container(
-                width: 68,
-                height: 68,
-                decoration: const BoxDecoration(
-                  color: AppColors.fondApp,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      blurStyle: BlurStyle.inner,
-                      color: Color.fromARGB(80, 255, 255, 255),
-                      offset: Offset(0, -3),
-                      blurRadius: 4,
-                      spreadRadius: -0.5,
-                    ),
-                    BoxShadow(
-                      blurStyle: BlurStyle.outer,
-                      color: Color.fromARGB(80, 0, 0, 0),
-                      offset: Offset(0, 3),
-                      blurRadius: 4,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.person_rounded,
-                    color: AppColors.iconsPrimary,
-                    size: 48,
-                  ),
-                ),
-              ),
-            ),
+          buildBottomNavItem(
+            context,
+            screenWidth,
+            'Profile',
+            Icons.person_rounded,
+            () => print("Profile"),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget buildRowItem(
+    BuildContext context,
+    double screenWidth,
+    double screenHeight,
+    String label,
+    IconData icon,
+  ) {
+    return Row(
+      children: [
+        InkResponse(
+          onTap: () {
+            print(label);
+          },
+          child: Container(
+            width: screenWidth * 0.15,
+            height: screenHeight * 0.08,
+            decoration: BoxDecoration(
+              color: AppColors.fondApp,
+              borderRadius: BorderRadius.circular(15),
+              boxShadow: const [
+                BoxShadow(
+                  blurStyle: BlurStyle.inner,
+                  color: Color.fromARGB(80, 255, 255, 255),
+                  offset: Offset(0, -3),
+                  blurRadius: 4,
+                  spreadRadius: -0.5,
+                ),
+                BoxShadow(
+                  blurStyle: BlurStyle.outer,
+                  color: Color.fromARGB(80, 0, 0, 0),
+                  offset: Offset(0, 3),
+                  blurRadius: 4,
+                  spreadRadius: 0,
+                ),
+              ],
+            ),
+            child: Center(
+              child: Icon(
+                icon,
+                color: AppColors.iconsPrimary,
+                size: screenHeight * 0.05,
+              ),
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(left: screenWidth * 0.02),
+          child: Text(
+            label,
+            style: TextStyle(
+              fontFamily: 'Roboto',
+              fontSize: screenHeight * 0.03,
+              fontWeight: FontWeight.normal,
+              color: AppColors.iconsPrimary,
+              letterSpacing: 2,
+              wordSpacing: 3,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget buildBottomNavItem(
+    BuildContext context,
+    double screenWidth,
+    String label,
+    IconData icon,
+    VoidCallback onTap,
+  ) {
+    return InkResponse(
+      onTap: onTap,
+      child: Container(
+        width: screenWidth * 0.15,
+        height: screenWidth * 0.15,
+        decoration: const BoxDecoration(
+          color: AppColors.fondApp,
+          shape: BoxShape.circle,
+          boxShadow: [
+            BoxShadow(
+              blurStyle: BlurStyle.inner,
+              color: Color.fromARGB(80, 255, 255, 255),
+              offset: Offset(0, -3),
+              blurRadius: 4,
+              spreadRadius: -0.5,
+            ),
+            BoxShadow(
+              blurStyle: BlurStyle.outer,
+              color: Color.fromARGB(80, 0, 0, 0),
+              offset: Offset(0, 3),
+              blurRadius: 4,
+              spreadRadius: 0,
+            ),
+          ],
+        ),
+        child: Center(
+          child: Icon(
+            icon,
+            color: AppColors.iconsPrimary,
+            size: screenWidth * 0.12,
+          ),
+        ),
       ),
     );
   }
