@@ -52,141 +52,154 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
         ),
       ),
       backgroundColor: AppColors.fondApp,
-      body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              //* Title
-              Container(
-                width: screenWidth * 0.9,
-                height: screenHeight * 0.06,
-                decoration: BoxDecoration(
-                  color: AppColors.fondApp,
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                      blurStyle: BlurStyle.inner,
-                      color: Color.fromARGB(127, 255, 255, 255),
-                      offset: Offset(-2, 5),
-                      blurRadius: 4,
-                      spreadRadius: -3,
-                    ),
-                    BoxShadow(
-                      blurStyle: BlurStyle.inner,
-                      color: Color.fromARGB(65, 0, 0, 0),
-                      offset: Offset(2, -5),
-                      blurRadius: 4,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: const Text(
-                  'Memoryze',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 32,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                    letterSpacing: 2,
-                    wordSpacing: 3,
-                  ),
-                ),
-              ),
-              //* Daily Challenge Area
-              Container(
-                width: screenWidth * 0.9,
-                height: screenHeight * 0.2,
-                decoration: BoxDecoration(
-                  color: AppColors.fondApp,
-                  borderRadius: BorderRadius.circular(5),
-                  boxShadow: const [
-                    BoxShadow(
-                      blurStyle: BlurStyle.inner,
-                      color: Color.fromARGB(127, 255, 255, 255),
-                      offset: Offset(-2, 5),
-                      blurRadius: 4,
-                      spreadRadius: -3,
-                    ),
-                    BoxShadow(
-                      blurStyle: BlurStyle.inner,
-                      color: Color.fromARGB(65, 0, 0, 0),
-                      offset: Offset(2, -5),
-                      blurRadius: 4,
-                      spreadRadius: 0,
-                    ),
-                  ],
-                ),
-                child: const Text(
-                  textAlign: TextAlign.center,
-                  'Daily Challenge',
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 28,
-                    fontWeight: FontWeight.normal,
-                    color: Colors.white,
-                    letterSpacing: 2,
-                    wordSpacing: 3,
-                    fontStyle: FontStyle.italic,
-                  ),
-                ),
-              ),
-              //* Icons and Labels
-              Padding(
-                padding: EdgeInsets.only(left: screenWidth * 0.1),
-                child: Column(
-                  children: [
-                    buildRowItem(
-                      context,
-                      screenWidth,
-                      screenHeight,
-                      'Time Challenge List',
-                      Icons.list_rounded,
-                    ),
-                    buildRowItem(
-                      context,
-                      screenWidth,
-                      screenHeight,
-                      'Match Mania',
-                      Icons.autorenew_rounded,
-                    ),
-                    buildRowItem(
-                      context,
-                      screenWidth,
-                      screenHeight,
-                      'Sequence Master',
-                      Icons.calendar_view_month_rounded,
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      body: Stack(
         children: [
-          buildBottomNavItem(
-            context,
-            screenWidth,
-            'Home',
-            Icons.home_filled,
-            () => print("You are ready on Home"),
+          //* Title
+          Positioned(
+            top: screenHeight * 0.02,
+            left: screenWidth * 0.05,
+            right: screenWidth * 0.05,
+            child: Container(
+              width: screenWidth * 0.9,
+              height: screenHeight * 0.06,
+              decoration: BoxDecoration(
+                color: AppColors.fondApp,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: const [
+                  BoxShadow(
+                    blurStyle: BlurStyle.inner,
+                    color: Color.fromARGB(127, 255, 255, 255),
+                    offset: Offset(-2, 5),
+                    blurRadius: 4,
+                    spreadRadius: -3,
+                  ),
+                  BoxShadow(
+                    blurStyle: BlurStyle.inner,
+                    color: Color.fromARGB(65, 0, 0, 0),
+                    offset: Offset(2, -5),
+                    blurRadius: 4,
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
+              child: const Text(
+                'Memoryze',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 32,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                  letterSpacing: 2,
+                  wordSpacing: 3,
+                ),
+              ),
+            ),
           ),
-          buildBottomNavItem(
-            context,
-            screenWidth,
-            'Add',
-            Icons.add,
-            () => print("Add"),
+          //* Daily Challenge Area
+          Positioned(
+            top: screenHeight * 0.10,
+            left: screenWidth * 0.05,
+            right: screenWidth * 0.05,
+            child: Container(
+              width: screenWidth * 0.9,
+              height: screenHeight * 0.2,
+              decoration: BoxDecoration(
+                color: AppColors.fondApp,
+                borderRadius: BorderRadius.circular(5),
+                boxShadow: const [
+                  BoxShadow(
+                    blurStyle: BlurStyle.inner,
+                    color: Color.fromARGB(127, 255, 255, 255),
+                    offset: Offset(-2, 5),
+                    blurRadius: 4,
+                    spreadRadius: -3,
+                  ),
+                  BoxShadow(
+                    blurStyle: BlurStyle.inner,
+                    color: Color.fromARGB(65, 0, 0, 0),
+                    offset: Offset(2, -5),
+                    blurRadius: 4,
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
+              child: const Text(
+                textAlign: TextAlign.center,
+                'Daily Challenge',
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 28,
+                  fontWeight: FontWeight.normal,
+                  color: Colors.white,
+                  letterSpacing: 2,
+                  wordSpacing: 3,
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+            ),
           ),
-          buildBottomNavItem(
-            context,
-            screenWidth,
-            'Profile',
-            Icons.person_rounded,
-            () => print("Profile"),
+          Positioned(
+            top: screenHeight * 0.33,
+            left: screenWidth * 0.05,
+            right: screenWidth * 0.05,
+            child: Column(
+              children: [
+                buildRowItem(
+                  context,
+                  screenWidth,
+                  screenHeight,
+                  'Time Challenge List',
+                  Icons.list_rounded,
+                ),
+                buildRowItem(
+                  context,
+                  screenWidth,
+                  screenHeight,
+                  'Match Mania',
+                  Icons.autorenew_rounded,
+                ),
+                buildRowItem(
+                  context,
+                  screenWidth,
+                  screenHeight,
+                  'Sequence Master',
+                  Icons.calendar_view_month_rounded,
+                ),
+              ],
+            ),
+          ),
+          //* Icons and Labels
+          Positioned(
+            bottom: screenHeight * 0.02,
+            left: screenWidth * 0.03,
+            right: screenWidth * 0.03,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                buildBottomNavItem(
+                  context,
+                  screenWidth,
+                  'Home',
+                  Icons.home_filled,
+                  () => print("You are ready on Home"),
+                ),
+                buildBottomNavItem(
+                  context,
+                  screenWidth,
+                  'Add',
+                  Icons.add,
+                  () => print("Add"),
+                ),
+                buildBottomNavItem(
+                  context,
+                  screenWidth,
+                  'Profile',
+                  Icons.person_rounded,
+                  () => print("Profile"),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -202,44 +215,47 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
   ) {
     return Row(
       children: [
-        InkResponse(
-          onTap: () {
-            print(label);
-          },
-          child: Container(
-            width: screenWidth * 0.15,
-            height: screenHeight * 0.08,
-            decoration: BoxDecoration(
-              color: AppColors.fondApp,
-              borderRadius: BorderRadius.circular(15),
-              boxShadow: const [
-                BoxShadow(
-                  blurStyle: BlurStyle.inner,
-                  color: Color.fromARGB(80, 255, 255, 255),
-                  offset: Offset(0, -3),
-                  blurRadius: 4,
-                  spreadRadius: -0.5,
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0, left: 2.0),
+          child: InkResponse(
+            onTap: () {
+              print(label);
+            },
+            child: Container(
+              width: screenWidth * 0.15,
+              height: screenHeight * 0.08,
+              decoration: BoxDecoration(
+                color: AppColors.fondApp,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: const [
+                  BoxShadow(
+                    blurStyle: BlurStyle.inner,
+                    color: Color.fromARGB(80, 255, 255, 255),
+                    offset: Offset(0, -3),
+                    blurRadius: 4,
+                    spreadRadius: -0.5,
+                  ),
+                  BoxShadow(
+                    blurStyle: BlurStyle.outer,
+                    color: Color.fromARGB(80, 0, 0, 0),
+                    offset: Offset(0, 3),
+                    blurRadius: 4,
+                    spreadRadius: 0,
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Icon(
+                  icon,
+                  color: AppColors.iconsPrimary,
+                  size: screenHeight * 0.05,
                 ),
-                BoxShadow(
-                  blurStyle: BlurStyle.outer,
-                  color: Color.fromARGB(80, 0, 0, 0),
-                  offset: Offset(0, 3),
-                  blurRadius: 4,
-                  spreadRadius: 0,
-                ),
-              ],
-            ),
-            child: Center(
-              child: Icon(
-                icon,
-                color: AppColors.iconsPrimary,
-                size: screenHeight * 0.05,
               ),
             ),
           ),
         ),
         Padding(
-          padding: EdgeInsets.only(left: screenWidth * 0.02),
+          padding: const EdgeInsets.only(left: 4.0, top: 20),
           child: Text(
             label,
             style: TextStyle(
