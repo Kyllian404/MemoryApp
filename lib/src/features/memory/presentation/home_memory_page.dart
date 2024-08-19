@@ -54,7 +54,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
       backgroundColor: AppColors.fondApp,
       body: Stack(
         children: [
-          //* Title
+          //* Page Title
           Positioned(
             top: screenHeight * 0.02,
             left: screenWidth * 0.05,
@@ -139,6 +139,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
               ),
             ),
           ),
+          //* Actions jeux/liste
           Positioned(
             top: screenHeight * 0.33,
             left: screenWidth * 0.05,
@@ -169,7 +170,7 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
               ],
             ),
           ),
-          //* Icons and Labels
+          //* Navigation bottom
           Positioned(
             bottom: screenHeight * 0.02,
             left: screenWidth * 0.03,
@@ -189,7 +190,79 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
                   screenWidth,
                   'Add',
                   Icons.add,
-                  () => print("Add"),
+                  () {
+                    showModalBottomSheet(
+                      context: context,
+                      barrierColor: Colors.white.withOpacity(0.1),
+                      builder: (context) {
+                        return Container(
+                          padding: const EdgeInsets.all(16.0),
+                          height: screenHeight * 0.42,
+                          decoration: const BoxDecoration(
+                            color: AppColors.fondApp,
+                            
+                            borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(20.0)),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Select an Action',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              const SizedBox(height: 10),
+                              ListTile(
+                                leading: const Icon(Icons.camera_alt,
+                                    color: AppColors.iconsPrimary),
+                                title: const Text('New Challenge',
+                                    style: TextStyle(color: Colors.white)),
+                                onTap: () {
+                                  // Your action here
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.card_giftcard,
+                                    color: AppColors.iconsPrimary),
+                                title: const Text('Rewards',
+                                    style: TextStyle(color: Colors.white)),
+                                onTap: () {
+                                  // Your action here
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.settings,
+                                    color: AppColors.iconsPrimary),
+                                title: const Text('Settings',
+                                    style: TextStyle(color: Colors.white)),
+                                onTap: () {
+                                  // Your action here
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              ListTile(
+                                leading: const Icon(Icons.room_preferences,
+                                    color: AppColors.iconsPrimary),
+                                title: const Text('Preferences',
+                                    style: TextStyle(color: Colors.white)),
+                                onTap: () {
+                                  // Your action here
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
                 ),
                 buildBottomNavItem(
                   context,
@@ -218,6 +291,10 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
         Padding(
           padding: const EdgeInsets.only(top: 20.0, left: 2.0),
           child: InkResponse(
+            splashColor: const Color.fromARGB(
+                255, 255, 255, 255), // Couleur de l'effet d'ondulation (splash)
+            radius:
+                10.0, // Rayon de l'effet d'ondulation (utile si la forme est circulaire)
             onTap: () {
               print(label);
             },
