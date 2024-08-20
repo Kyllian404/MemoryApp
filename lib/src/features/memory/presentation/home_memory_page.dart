@@ -12,13 +12,13 @@ enum SampleItem { profile, settings, preferences }
 
 class _HomeMemoryPageState extends State<HomeMemoryPage> {
   SampleItem? selectedItem;
+  bool _isExpanded = false;
 
   @override
   Widget build(BuildContext context) {
     // Get screen dimensions
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
-    final isPortrait = screenHeight > screenWidth;
 
     return Scaffold(
       appBar: AppBar(
@@ -172,9 +172,9 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
           ),
           //* Navigation bottom
           Positioned(
-            bottom: screenHeight * 0.02,
-            left: screenWidth * 0.03,
-            right: screenWidth * 0.03,
+            bottom: screenHeight * 0.025,
+            left: screenWidth * -0.25,
+            right: screenWidth * -0.25,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -188,85 +188,6 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
                 buildBottomNavItem(
                   context,
                   screenWidth,
-                  'Add',
-                  Icons.add,
-                  () {
-                    showModalBottomSheet(
-                      context: context,
-                      barrierColor: Colors.white.withOpacity(0.1),
-                      builder: (context) {
-                        return Container(
-                          padding: const EdgeInsets.all(16.0),
-                          height: screenHeight * 0.42,
-                          decoration: const BoxDecoration(
-                            color: AppColors.fondApp,
-                            
-                            borderRadius: BorderRadius.vertical(
-                                top: Radius.circular(20.0)),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Text(
-                                'Select an Action',
-                                style: TextStyle(
-                                  fontFamily: 'Roboto',
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              ListTile(
-                                leading: const Icon(Icons.camera_alt,
-                                    color: AppColors.iconsPrimary),
-                                title: const Text('New Challenge',
-                                    style: TextStyle(color: Colors.white)),
-                                onTap: () {
-                                  // Your action here
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.card_giftcard,
-                                    color: AppColors.iconsPrimary),
-                                title: const Text('Rewards',
-                                    style: TextStyle(color: Colors.white)),
-                                onTap: () {
-                                  // Your action here
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.settings,
-                                    color: AppColors.iconsPrimary),
-                                title: const Text('Settings',
-                                    style: TextStyle(color: Colors.white)),
-                                onTap: () {
-                                  // Your action here
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              ListTile(
-                                leading: const Icon(Icons.room_preferences,
-                                    color: AppColors.iconsPrimary),
-                                title: const Text('Preferences',
-                                    style: TextStyle(color: Colors.white)),
-                                onTap: () {
-                                  // Your action here
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
-                ),
-                buildBottomNavItem(
-                  context,
-                  screenWidth,
                   'Profile',
                   Icons.person_rounded,
                   () => print("Profile"),
@@ -276,8 +197,59 @@ class _HomeMemoryPageState extends State<HomeMemoryPage> {
           ),
         ],
       ),
+      floatingActionButton: _buildExpandableFab(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
+
+  Widget _buildExpandableFab() {
+    return Stack(
+      alignment: Alignment.bottomCenter, // Aligner le bouton dans le coin en bas à droite
+      children: [
+        // Boutons d'actions flottants qui apparaissent à partir du bouton principal
+        _buildActionButton(Icons.camera_alt, "Take a Photo", 1),
+        _buildActionButton(Icons.photo_library, "Choose from Gallery", 2),
+        _buildActionButton(Icons.edit, "Create a Note", 3),
+
+        // Bouton principal qui déclenche l'apparition des autres boutons
+        FloatingActionButton(
+          backgroundColor: AppColors.iconsPrimary,
+          
+          onPressed: () {
+            setState(() {
+              _isExpanded = !_isExpanded; // Inverser l'état d'expansion lorsqu'on appuie sur le bouton
+            });
+          },
+          child: Icon(_isExpanded ? Icons.close : Icons.add), // Changer l'icône en fonction de l'état
+        ),
+      ],
+    );
+  }
+
+    Widget _buildActionButton(IconData icon, String tooltip, int index) {
+    return Visibility(
+      visible: _isExpanded, // Le bouton est visible uniquement si _isExpanded est true
+      child: AnimatedContainer(
+        alignment: Alignment(0.0, 0.3),
+        duration: const Duration(milliseconds: 300), // Durée de l'animation
+        margin: EdgeInsets.only(top: index * 150), // Déplacer les boutons vers le haut
+        curve: Curves.bounceInOut,
+        child: FloatingActionButton(
+          mini: true, // Bouton flottant plus petit
+          backgroundColor: AppColors.iconsPrimary,
+          onPressed: () {
+            print(tooltip);
+            setState(() {
+              _isExpanded = false; // Replier les boutons après avoir cliqué
+            });
+          },
+          child: Icon(icon),
+          tooltip: tooltip,
+        ),
+      ),
+    );
+  }
+
 
   Widget buildRowItem(
     BuildContext context,
